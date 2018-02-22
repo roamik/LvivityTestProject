@@ -1,0 +1,5 @@
+﻿'dotnet.exe' (CoreCLR: DefaultDomain): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.0.5\System.Private.CoreLib.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Admin\source\repos\MyTestProject\MyTestProject\bin\Debug\netcoreapp2.0\MyTestProject.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.0.5\System.Runtime.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+The program '[9180] dotnet.exe' has exited with code 0 (0x0).
+The program '[8128] chrome.exe: WebKit' has exited with code -1 (0xffffffff).
