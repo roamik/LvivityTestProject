@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MyTestProject.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using MyTestProject.Helpers;
 
 namespace MyTestProject
 {
@@ -22,6 +25,29 @@ namespace MyTestProject
         {
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DatabaseContext")));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // describes if the publisher will be validated
+                            ValidateIssuer = true,
+                            // string wich represents the publisher
+                            ValidIssuer = AuthOptions.ISSUER,
+  
+                            ValidateAudience = true,
+                            // token consumer setup
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // if the life time will be validated
+                            ValidateLifetime = true,
+
+                            // security key
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // security key validation
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +70,11 @@ namespace MyTestProject
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
