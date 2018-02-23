@@ -21,15 +21,6 @@
         <input type="submit" id="submitAndLogin" value="Login" />
     </div>
 
-    <div class="registerForm">
-        <h3>Register</h3>
-        <label>Email:</label><br />
-        <input type="email" id="emailRegister" /> <br /><br />
-        <label>Password:</label><br />
-        <input type="password" id="passwordRegister" /><br /><br />
-
-        <input type="submit" id="submitAndRegister" value="Login" />
-    </div>
 
     <div>
 
@@ -43,9 +34,10 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
     <script>
-        var tokenKey = "accessToken";
+        var tokenKey = "token";
         $('#submitAndLogin').click(function (e) {
             e.preventDefault();
+            debugger;
             var loginData = {
                 grant_type: 'password',
                 username: $('#emailLogin').val(),
@@ -54,7 +46,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/login',
+                url: 'api/account/login',
                 data: loginData
             }).success(function (data) {
                 $('.userName').text(data.username);
@@ -64,11 +56,9 @@
                 $('#getDataByLogin').css('display', 'block');
 
                 $('#getDataByRole').css('display', 'block');
-                // saving into storage - 'sessionStorage' an access token
-                sessionStorage.setItem(tokenKey, data.access_token);
-                console.log(data.access_token);
+                sessionStorage.setItem(tokenKey, data.token);
+                console.log(data.token);
             }).fail(function (data) {
-                console.log(data);
             });
         });
 
@@ -93,8 +83,8 @@
 
                 $('#getDataByRole').css('display', 'block');
                 // saving into storage - 'sessionStorage' an access token
-                sessionStorage.setItem(tokenKey, data.access_token);
-                console.log(data.access_token);
+                sessionStorage.setItem(tokenKey, data.token);
+                console.log(data.token);
             }).fail(function (data) {
                 console.log(data);
             });
@@ -115,9 +105,9 @@
             e.preventDefault();
             $.ajax({
                 type: 'GET',
-                url: '/api/values/getlogin',
+                url: 'api/values/getlogin',
                 beforeSend: function (xhr) {
-
+                    
                     var token = sessionStorage.getItem(tokenKey);
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },

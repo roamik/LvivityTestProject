@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyTestProject.Helpers;
 using MyTestProject.Models;
 using MyTestProject.Options;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -41,7 +43,7 @@ namespace MyTestProject.Controllers
             {
                 var claims = new List<Claim> {
                     new Claim( ClaimsIdentity.DefaultNameClaimType, user.Login ),
-                    new Claim( JwtRegisteredClaimNames.Sub, user.Login ),
+                    new Claim( ClaimsIdentity.DefaultRoleClaimType, user.Role ),
                     new Claim( JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() )
                 };
                 var creds = new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256);
@@ -53,7 +55,8 @@ namespace MyTestProject.Controllers
                     expires: DateTime.UtcNow.AddMinutes(30),
                     signingCredentials: creds);
 
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
+
+                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), username = user.Login });
             }
 
             return BadRequest(ModelState);
@@ -84,7 +87,5 @@ namespace MyTestProject.Controllers
 
             return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
         }
-
     }
-
 }

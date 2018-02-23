@@ -35,7 +35,7 @@ namespace MyTestProject.Controllers
             return Ok($"Login: {User.Identity.Name}");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, user")]
         [HttpGet]
         [Route("getrole")]
         public IActionResult GetRole()

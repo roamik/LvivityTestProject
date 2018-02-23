@@ -10,7 +10,7 @@ namespace MyTestProject.Helpers
     public class AuthOptions
     {
         public const string ISSUER = "MyTokenCreator"; // token publisher
-        public const string AUDIENCE = "http://localhost:51884/"; // token consumer
+        public const string AUDIENCE = "http://localhost:59046/"; // token consumer
         const string KEY = "mysupersecret_secretkey!123";   // key
         public const int LIFETIME = 20; // token lifetime
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
