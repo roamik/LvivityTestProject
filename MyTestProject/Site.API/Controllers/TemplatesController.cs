@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,33 +9,24 @@ using MyTestProject.Models;
 namespace MyTestProject.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class TemplatesController : Controller
     {
         private readonly DatabaseContext _context;
 
-        public ValuesController(DatabaseContext context)
+        public TemplatesController(DatabaseContext context)
         {
             _context = context;
         }
 
-        //ADD A USER TO DB
-        //public void Test()
-        //{
-        //    var user = new User { Login = "user@gmail.com", Password = "12345", Role = "user" };
-
-        //    _context.Add(user);
-        //    _context.SaveChanges();
-        //}
-
         [Authorize]
         [HttpGet]
-        [Route("getlogin")]
+        [Route("templates")]
         public IActionResult GetLogin()
         {
             return Ok($"Login: {User.Identity.Name}");
         }
 
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "Admin, user")]
         [HttpGet]
         [Route("getrole")]
         public IActionResult GetRole()

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Site.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace MyTestProject.Models
   {
 
     public string Name { get; set; }
+
+    //nav
+    public List<Template> Templates { get; set; }
   }
 }

@@ -7,23 +7,38 @@ using MyTestProject.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MyTestProject.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Site.API.Configuration;
+using System;
+using Site.API.Helpers;
+using System.Text;
+using System.Threading.Tasks;
+using MyTestProject.Options;
 
 namespace MyTestProject
 {
   public class Startup
   {
-    public Startup(IConfiguration configuration)
+    private const string TOKEN = "token";
+
+    public Startup(IHostingEnvironment env)
     {
-      Configuration = configuration;
+      var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+      Configuration = builder.Build();
     }
 
-    public IConfiguration Configuration { get; }
+    public IConfigurationRoot Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.Configure<JWTOptions>(Configuration.GetSection("Tokens"));
+
       services.AddDbContext<DatabaseContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DatabaseContext")));
 
@@ -38,33 +53,43 @@ namespace MyTestProject
             .AllowCredentials());
       });
 
+      //services.AddIdentity<User, IdentityRole>()
+      //          .AddEntityFrameworkStores<DatabaseContext>();
+      services.AddScoped<IUserRoleSeed, UserRoleSeed>();
+
       services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<DatabaseContext>();
+               .AddEntityFrameworkStores<DatabaseContext>()
+               .AddDefaultTokenProviders()
+               .AddRoleValidator<RoleValidator<IdentityRole>>()
+               .AddRoleManager<RoleManager<IdentityRole>>()
+               .AddSignInManager<SignInManager<User>>();
 
-      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                      options.RequireHttpsMetadata = false;
-                      options.TokenValidationParameters = new TokenValidationParameters
-                      {
-                        // describes if the publisher will be validated
-                        ValidateIssuer = true,
-                        // string wich represents the publisher
-                        ValidIssuer = AuthOptions.ISSUER,
+      //JWT
+      services.AddAuthentication(o =>
+      {
+        o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+      })
+      .AddJwtBearer(options =>
+      {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+          ValidateIssuer = true,
+          ValidateAudience = true,
+          ValidateLifetime = true,
+          ValidateIssuerSigningKey = true,
 
-                        ValidateAudience = true,
-                        // token consumer setup
-                        ValidAudience = AuthOptions.AUDIENCE,
-                        // if the life time will be validated
-                        ValidateLifetime = true,
+          ValidIssuer = Configuration["Tokens:Issuer"],
+          ValidAudience = Configuration["Tokens:Issuer"],
+          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+        };
+      });
 
-                        // security key
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        // security key validation
-                        ValidateIssuerSigningKey = true,
-                      };
-                    });
       services.AddMvc();
+
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -72,8 +97,10 @@ namespace MyTestProject
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUserRoleSeed roleSeed)
     {
+      IServiceScopeFactory scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
@@ -95,6 +122,13 @@ namespace MyTestProject
       app.UseAuthentication();
 
       app.UseMvc();
+
+      using (IServiceScope scope = scopeFactory.CreateScope())
+      {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        ((UserRoleSeed)roleSeed).Initialize(roleManager).Wait();
+      }     
     }
   }
 }
