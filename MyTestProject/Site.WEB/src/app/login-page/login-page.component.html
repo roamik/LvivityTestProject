@@ -1,11 +1,35 @@
 <form #f="ngForm" (ngSubmit)="login()" novalidate>
-  <div class="loginForm">
-    <h1>Login</h1>
-    <label>Email:</label>
-    <input type="text" name="email" placeholder="test@example.com" [(ngModel)]="model.email" #email="ngModel" ngModel required />
-    <label>Password:</label>
-    <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" ngModel required />
+    <div class="loginForm">
+        <h1>Login</h1>
+        <label>Email:</label>
 
-    <button class="">Login</button>
-  </div>
+        <input type="text" name="email" placeholder="test@example.com" [(ngModel)]="model.email" #email="ngModel" ngModel required
+               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+
+        <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+            <div *ngIf="f.submitted && email.errors && email.errors.required">
+                <span>Email is required!</span>
+            </div>
+            <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+                <span>Email is invalid!</span>
+            </div>
+        </div>
+
+        <label>Password:</label>
+
+        <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" ngModel required
+               pattern="^(?=.*[a-z])(?=.*[A-Z])?(?=.*\d)(?=.*[$@$!%*?&-])?[A-Za-z\d$@$!%*?&-]{8,}$" />
+
+        <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+            <div *ngIf="f.submitted && password.errors && password.errors.required">
+                <span>Password is required!</span>
+            </div>
+            <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+                <span>Password is invalid!</span>
+            </div>
+        </div>
+
+        <button class="">Login</button>
+        <a routerLink="/register" class="btn_custom">Register</a>
+    </div>
 </form>

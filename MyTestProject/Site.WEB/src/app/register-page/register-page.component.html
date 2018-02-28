@@ -1,0 +1,56 @@
+<form #f="ngForm" (ngSubmit)="register()" novalidate>
+
+    <div class="fieldWrap">
+        <h1>New User</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Name: </p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="name" [(ngModel)]="model.name" #name="ngModel" ngModel />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Email: </p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="email" placeholder="email@somewhere.yeah" [(ngModel)]="model.email" #email="ngModel" ngModel required
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+
+                <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                    <div *ngIf="f.submitted && email.errors && email.errors.required">
+                        <span>Email is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+                        <span>Email is invalid!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Password: </p>
+            </div>
+            <div class="col-xs-6">
+                <input type="password" name="password" placeholder="Make this super secret" [(ngModel)]="model.password" #password="ngModel" ngModel required
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])?(?=.*\d)(?=.*[$@$!%*?&-])?[A-Za-z\d$@$!%*?&-]{8,}$" />
+
+                <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                    <div *ngIf="f.submitted && password.errors && password.errors.required">
+                        <span>Password is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+                        <span>Password is invalid!(at least 8 characters!ex. qwerty123)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-default btn_custom center-block" type="submit">Register</button>
+</form>

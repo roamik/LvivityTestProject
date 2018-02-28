@@ -22,14 +22,12 @@ namespace MyTestProject.Controllers
   [AllowAnonymous]
   public class AccountController : Controller
   {
-    private readonly DatabaseContext _context;
     private readonly IOptions<JWTOptions> _options;
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
 
     public AccountController(DatabaseContext context, IOptions<JWTOptions> options, UserManager<User> userManager, SignInManager<User> signInManager)
     {
-      _context = context;
       _options = options;
       _userManager = userManager;
       _signInManager = signInManager;
@@ -40,14 +38,16 @@ namespace MyTestProject.Controllers
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginBindingModel model)
     {
-      var user = await _context.UserManager.FindByEmailAsync(model.Email);
+      var user = await _userManager.FindByEmailAsync(model.Email);
       if (user == null)
       {
         ModelState.AddModelError("Email", "Not found");
       }
       else
       {
-        var roles = await _context.UserManager.GetRolesAsync(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+        if (!result.Succeeded) return BadRequest(ModelState);
         var claims = new List<Claim> {
                     new Claim( ClaimsIdentity.DefaultNameClaimType, user.UserName),
                     new Claim( JwtRegisteredClaimNames.Sid, user.Id ),
@@ -79,12 +79,8 @@ namespace MyTestProject.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] RegisterBindingModel model)
     {
-
-
-
       var user = new User { Name = model.Name, UserName = model.Email, Email = model.Email };
       var result = await _userManager.CreateAsync(user, model.Password);
-
 
       if (!result.Succeeded) { return BadRequest("Could not create token"); }
       var claims = new[]
