@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using MyTestProject.Models;
+using Site.API.Models;
 using System;
 
 namespace Site.API.Migrations
@@ -183,7 +183,7 @@ namespace Site.API.Migrations
 
             modelBuilder.Entity("Site.API.Models.Template", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");

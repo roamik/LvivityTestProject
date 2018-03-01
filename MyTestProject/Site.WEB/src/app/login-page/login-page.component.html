@@ -1,35 +1,44 @@
 <form #f="ngForm" (ngSubmit)="login()" novalidate>
-    <div class="loginForm">
+    <div class="fieldWrap">
         <h1>Login</h1>
-        <label>Email:</label>
-
-        <input type="text" name="email" placeholder="test@example.com" [(ngModel)]="model.email" #email="ngModel" ngModel required
-               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
-
-        <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
-            <div *ngIf="f.submitted && email.errors && email.errors.required">
-                <span>Email is required!</span>
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Email:</p>
             </div>
-            <div *ngIf="f.submitted && email.errors && email.errors.pattern">
-                <span>Email is invalid!</span>
-            </div>
-        </div>
+            <div class="col-xs-6">
+                <input type="text" name="email" placeholder="test@example.com" [(ngModel)]="model.email" #email="ngModel" ngModel required
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
 
-        <label>Password:</label>
-
-        <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" ngModel required
-               pattern="^(?=.*[a-z])(?=.*[A-Z])?(?=.*\d)(?=.*[$@$!%*?&-])?[A-Za-z\d$@$!%*?&-]{8,}$" />
-
-        <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
-            <div *ngIf="f.submitted && password.errors && password.errors.required">
-                <span>Password is required!</span>
-            </div>
-            <div *ngIf="f.submitted && password.errors && password.errors.pattern">
-                <span>Password is invalid!</span>
+                <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                    <div *ngIf="f.submitted && email.errors && email.errors.required">
+                        <span>Email is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && email.errors && email.errors.pattern">
+                        <span>Email is invalid!</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button class="">Login</button>
-        <a routerLink="/register" class="btn_custom">Register</a>
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Password:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" ngModel required
+                       pattern="^(?=.*[a-z])(?=.*[A-Z])?(?=.*\d)(?=.*[$@$!%*?&-])?[A-Za-z\d$@$!%*?&-]{8,}$" />
+
+                <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                    <div *ngIf="f.submitted && password.errors && password.errors.required">
+                        <span>Password is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && password.errors && password.errors.pattern">
+                        <span>Password is invalid!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <button class="btn btn-primary center-block">Login</button>
+            <button routerLink="/register" class="btn btn-primary center-block">Register</button>
     </div>
 </form>

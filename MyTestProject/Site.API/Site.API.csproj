@@ -12,12 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180222105120_Initialization.cs" />
-    <Compile Remove="Migrations\20180222105120_Initialization.Designer.cs" />
-    <Compile Remove="Migrations\20180226140327_AddedIdentityUser.cs" />
-    <Compile Remove="Migrations\20180226140327_AddedIdentityUser.Designer.cs" />
-    <Compile Remove="Migrations\20180226141932_AddedUserIdentity.cs" />
-    <Compile Remove="Migrations\20180226141932_AddedUserIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20180301150058_Initial.cs" />
+    <Compile Remove="Migrations\20180301150058_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180301150351_initial.cs" />
+    <Compile Remove="Migrations\20180301150351_initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: #C5C5C5;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+input {
+    color: black;
+    max-width: 100%;
+}
+
+
+.btn-primary {
+    background-color: black;
+}
+
+
+h1, h2 {
+    text-align: center;
+}
+
+hr {
+    margin: 0.5em 1em;
+    border: 1px solid rgba(0,0,0,.3);
+}
+
+.textOutline {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.fieldWrap {
+    border: 2px solid black;
+    background: #118185;
+    margin-bottom: 1em;
+    padding: 1em 1em;
+}
+
+
+.blockFooter {
+    background: #111010;
+    border-radius: 5px;
+    padding:0.3em;
+}

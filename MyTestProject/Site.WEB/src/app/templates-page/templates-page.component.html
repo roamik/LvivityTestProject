@@ -1,0 +1,70 @@
+<form #f="ngForm" (ngSubmit)="addTemplate()" novalidate>
+
+    <div class="fieldWrap">
+        <h1>New Template</h1>
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Name:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="name" placeholder="Give a name" [(ngModel)]="template.name" #name="ngModel" ngModel required
+                       maxlength="8" />
+
+                <div class="md-errors-spacer" [hidden]="name.valid || name.untouched">
+                    <div *ngIf="f.submitted && name.errors && name.errors.required">
+                        <span>Name is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && name.errors">
+                        <span>Name is invalid!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Description:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="description" placeholder="Description" [(ngModel)]="template.description" #description="ngModel" ngModel required
+                       maxlength="10" />
+
+                <div class="md-errors-spacer" [hidden]="description.valid || description.untouched">
+                    <div *ngIf="f.submitted && description.errors && description.errors.required">
+                        <span>Description is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && description.errors">
+                        <span>Description is invalid!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Content:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="content" placeholder="Content" [(ngModel)]="template.content" #content="ngModel" ngModel required
+                       maxlength="10" />
+
+                <div class="md-errors-spacer" [hidden]="content.valid || content.untouched">
+                    <div *ngIf="f.submitted && content.errors && content.errors.required">
+                        <span>Content is required!</span>
+                    </div>
+                    <div *ngIf="f.submitted && content.errors">
+                        <span>Content is invalid!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary center-block" type="submit">Add template</button>
+    </div>
+</form>
+<br />
+<ul>
+    <li *ngFor="let template of templates">
+        {{ template.Name }}
+    </li>
+</ul>

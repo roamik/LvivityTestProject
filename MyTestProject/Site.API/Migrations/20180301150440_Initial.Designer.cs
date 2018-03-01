@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using MyTestProject.Models;
+using Site.API.Models;
 using System;
 
 namespace Site.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20180226144835_Initial")]
+    [Migration("20180301150440_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -182,6 +182,26 @@ namespace Site.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Site.API.Models.Template", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<string>("Decription");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Templates");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -225,6 +245,13 @@ namespace Site.API.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Site.API.Models.Template", b =>
+                {
+                    b.HasOne("MyTestProject.Models.User", "User")
+                        .WithMany("Templates")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

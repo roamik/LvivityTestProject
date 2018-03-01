@@ -1,6 +1,7 @@
 using MyTestProject.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,8 @@ namespace Site.API.Models
     [ForeignKey("User")]
     public string UserId { get; set; }
 
-    public int Id { get; set; }
+    [Key]
+    public string Id { get; set; }
 
     public string Name { get; set; }
 

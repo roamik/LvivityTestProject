@@ -12,10 +12,13 @@ using Site.API.Configuration;
 using System;
 using Site.API.Helpers;
 using System.Text;
-using System.Threading.Tasks;
 using MyTestProject.Options;
+using Site.API.DAL.Abstract;
+using Site.API.DAL.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Site.API.Models;
 
-namespace MyTestProject
+namespace Site.API
 {
   public class Startup
   {
@@ -53,9 +56,11 @@ namespace MyTestProject
             .AllowCredentials());
       });
 
-      //services.AddIdentity<User, IdentityRole>()
-      //          .AddEntityFrameworkStores<DatabaseContext>();
       services.AddScoped<IUserRoleSeed, UserRoleSeed>();
+
+      services.AddSingleton<ITemplatesRepository, TemplatesRepository>();
+
+      services.AddScoped<IdentityDbContext<User>, DatabaseContext>();
 
       services.AddIdentity<User, IdentityRole>()
                .AddEntityFrameworkStores<DatabaseContext>()
@@ -118,8 +123,7 @@ namespace MyTestProject
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, IUserRoleSeed roleSeed)
     {
-      IServiceScopeFactory scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-
+      var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
       app.UseCors("CorsPolicy");
       if (env.IsDevelopment())
       {
@@ -141,7 +145,7 @@ namespace MyTestProject
 
       app.UseMvc();
 
-      using (IServiceScope scope = scopeFactory.CreateScope())
+      using (var scope = scopeFactory.CreateScope())
       {
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 

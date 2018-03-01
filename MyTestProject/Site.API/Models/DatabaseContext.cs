@@ -1,14 +1,9 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Site.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MyTestProject.Models;
 
-namespace MyTestProject.Models
+namespace Site.API.Models
 {
   public class DatabaseContext : IdentityDbContext<User>
   {
@@ -33,7 +28,11 @@ namespace MyTestProject.Models
           "Server = DESKTOP-F84JFFC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true");
     }
 
-    public UserManager<User> UserManager { get; }
+
+
+    //public UserManager<User> UserManager { get; }
+
+    //public SignInManager<User> SignInManager { get; }
 
     public DbSet<Template> Templates { get; set; }
 

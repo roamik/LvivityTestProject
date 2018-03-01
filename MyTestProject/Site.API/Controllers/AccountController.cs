@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyTestProject.Models;
 using MyTestProject.Options;
-using Newtonsoft.Json;
 using Site.API.BindingModels;
 using System;
 using System.Collections.Generic;
@@ -16,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyTestProject.Controllers
+namespace Site.API.Controllers
 {
   [Route("api/[controller]")]
   [AllowAnonymous]
@@ -26,11 +24,11 @@ namespace MyTestProject.Controllers
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
 
-    public AccountController(DatabaseContext context, IOptions<JWTOptions> options, UserManager<User> userManager, SignInManager<User> signInManager)
+    public AccountController(IOptions<JWTOptions> options, UserManager<User> userManager, SignInManager<User> signInManager)
     {
-      _options = options;
       _userManager = userManager;
       _signInManager = signInManager;
+      _options = options;
     }
 
     // POST api/account/login
@@ -39,6 +37,7 @@ namespace MyTestProject.Controllers
     public async Task<IActionResult> Login([FromBody] LoginBindingModel model)
     {
       var user = await _userManager.FindByEmailAsync(model.Email);
+      //var role
       if (user == null)
       {
         ModelState.AddModelError("Email", "Not found");
@@ -50,13 +49,14 @@ namespace MyTestProject.Controllers
         if (!result.Succeeded) return BadRequest(ModelState);
         var claims = new List<Claim> {
                     new Claim( ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                    //new Claim (ClaimsIdentity.DefaultRoleClaimType)
                     new Claim( JwtRegisteredClaimNames.Sid, user.Id ),
                     new Claim( JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sid, user.Id)
                 };
         if (roles.Any())
         {
-          claims.AddRange(roles.Select(role => new Claim(JwtRegisteredClaimNames.Sub, role)));
+          claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
         }
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
