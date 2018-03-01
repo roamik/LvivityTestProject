@@ -68,8 +68,10 @@ namespace Site.API.Controllers
             expires: DateTime.UtcNow.AddMinutes(30),
             signingCredentials: creds);
 
+        //await _userManager.AddToRoleAsync(user, "Member");
 
-        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), name = user.Name });
+
+        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
       }
 
       return BadRequest(ModelState);

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/user';
-import { TemplatesService } from '../_services/templatesService';
+import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
 
 @Component({
@@ -23,8 +22,8 @@ export class TemplatesPageComponent implements OnInit {
     getMyTemplates() {
         this.templatesService.getTemplates().subscribe(
             templates => { this.templates = templates },
-            error => { }
-        )
+            error => {}
+        );
     }
 
     addTemplate() {

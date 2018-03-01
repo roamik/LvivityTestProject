@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Site.API.BindingModels;
+using Site.API.DAL.Abstract;
 using Site.API.DAL.Concrete;
 using Site.API.Models;
 
@@ -11,12 +12,12 @@ namespace Site.API.Controllers
 {
   
   [Route("api/[controller]")]
-  //[Authorize(Roles = "Admin,Member")]
-  [AllowAnonymous]
+  [Authorize(Roles = "Admin, Member")]
   public class TemplatesController : Controller
   {
-    private readonly TemplatesRepository _templateRep;
-    public TemplatesController(TemplatesRepository templateRep)
+    private readonly ITemplatesRepository _templateRep;
+
+    public TemplatesController(ITemplatesRepository templateRep)
     {
       _templateRep = templateRep;
     }

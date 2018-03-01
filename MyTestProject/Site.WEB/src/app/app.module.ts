@@ -13,7 +13,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TemplatesPageComponent } from './templates-page/templates-page.component';
-import { TemplatesService } from './_services/templatesService';
+import { TemplatesService } from './_services/templates.service';
 
 
 const appRoutes: Routes = [

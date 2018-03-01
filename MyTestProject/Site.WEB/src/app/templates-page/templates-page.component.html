@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="addTemplate()" novalidate>
+<form #f="ngForm" (ngSubmit)="f.vaild && addTemplate()" novalidate>
 
     <div class="fieldWrap">
         <h1>New Template</h1>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-xs-6">
                 <input type="text" name="description" placeholder="Description" [(ngModel)]="template.description" #description="ngModel" ngModel required
-                       maxlength="10" />
+                       maxlength="15" />
 
                 <div class="md-errors-spacer" [hidden]="description.valid || description.untouched">
                     <div *ngIf="f.submitted && description.errors && description.errors.required">
@@ -59,12 +59,21 @@
             </div>
         </div>
 
-        <button class="btn btn-primary center-block" type="submit">Add template</button>
+        <button type="button" [disabled]="!f.valid" class="btn btn-primary center-block" (click)="addTemplate()">Create</button>
     </div>
 </form>
 <br />
-<ul>
-    <li *ngFor="let template of templates">
-        {{ template.Name }}
-    </li>
-</ul>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th> 
+        <th>Content</th>
+    </tr>
+    <tr *ngFor="let template of templates; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{template.name}}</td>
+        <td>{{template.description}}</td>
+        <td>{{template.content}}</td>
+    </tr>
+</table>`

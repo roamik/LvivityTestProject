@@ -58,7 +58,7 @@ namespace Site.API
 
       services.AddScoped<IUserRoleSeed, UserRoleSeed>();
 
-      services.AddSingleton<ITemplatesRepository, TemplatesRepository>();
+      services.AddScoped<ITemplatesRepository, TemplatesRepository>();
 
       services.AddScoped<IdentityDbContext<User>, DatabaseContext>();
 
