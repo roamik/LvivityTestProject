@@ -1,5 +1,4 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http} from '@angular/http';
 
 import { AuthGuard } from '../_guards/auth.guard';
 
@@ -15,6 +14,10 @@ export class TemplatesService {
         this.BASEURL = environment.baseApi;
     }
 
+    getById(id: string): Observable<Template> {
+        return this.http.get<Template>(this.BASEURL + 'api/templates/' + id);
+    }
+
     getTemplates(): Observable<Template[]> {
         var url = 'api/templates/my' ;
         return this.http.get<Template[]>(this.BASEURL + url);
@@ -22,5 +25,13 @@ export class TemplatesService {
 
     add(model): Observable<Template> {
         return this.http.post<Template>(this.BASEURL + 'api/templates', model);
+    }
+
+    deleteTemplate(id): Observable<Template> {
+        return this.http.delete<Template>(this.BASEURL + 'api/templates/' + id);
+    }
+
+    update(model, id: string): Observable<Template> {
+        return this.http.put<Template>(this.BASEURL + 'api/templates/' + id, model);
     }
 }

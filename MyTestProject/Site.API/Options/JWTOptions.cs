@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyTestProject.Options
+namespace Site.API.Options
 {
     public class JWTOptions
     {

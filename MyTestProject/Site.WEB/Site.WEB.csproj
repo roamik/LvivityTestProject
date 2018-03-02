@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="src\app\_guards\auth.guard.ts" />
+    <None Remove="src\app\_interceptors\token.interceptor.ts" />
     <None Remove="src\app\_models\template.ts" />
     <None Remove="src\app\_models\user.ts" />
     <None Remove="src\app\_services\authentication.service.ts" />
@@ -18,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\_interceptors\token.interceptor.ts" />
     <TypeScriptCompile Include="src\app\_models\template.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />

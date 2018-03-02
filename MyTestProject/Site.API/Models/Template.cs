@@ -1,24 +1,23 @@
 using MyTestProject.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Site.API.Models.Interfaces;
 
 namespace Site.API.Models
 {
-  public class Template
+  public class Template : IEntity
   {
     [ForeignKey("User")]
     public string UserId { get; set; }
 
     [Key]
-    public string Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
 
     public string Name { get; set; }
 
-    public string Decription { get; set; }
+    public string Description { get; set; }
 
     public string Content { get; set; }
 

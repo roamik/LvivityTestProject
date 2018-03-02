@@ -18,6 +18,8 @@ export class RegisterPageComponent implements OnInit {
 
     ngOnInit() {
 
+        this.authenticationService.logout();
+
     }
 
 
@@ -28,7 +30,7 @@ export class RegisterPageComponent implements OnInit {
                 this.router.navigate(['/home']);
             },
             error => {
-                
+
             });
     }
 }

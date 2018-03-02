@@ -14,6 +14,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TemplatesPageComponent } from './templates-page/templates-page.component';
 import { TemplatesService } from './_services/templates.service';
+import { TokenInterceptor } from './_interceptors/token.interceptor';
+import { EditPageComponent } from './edit-page/edit-page.component';
 
 
 const appRoutes: Routes = [
@@ -21,6 +23,7 @@ const appRoutes: Routes = [
     { path: "register", component: RegisterPageComponent },
     { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
     { path: "templates", component: TemplatesPageComponent, canActivate: [AuthGuard] },
+    { path: "edit/:id", component: EditPageComponent, canActivate: [AuthGuard] },
 
     {
         path: "",
@@ -41,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomePageComponent,
         RegisterPageComponent,
         NavbarComponent,
-        TemplatesPageComponent
+        TemplatesPageComponent,
+        EditPageComponent
     ],
     imports: [
         BrowserModule,
@@ -49,7 +53,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpClientModule
     ],
-    providers: [
+    providers: [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
         AuthenticationService,
         TemplatesService,
         AuthGuard

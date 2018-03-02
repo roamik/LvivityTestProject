@@ -11,9 +11,10 @@ using System;
 namespace Site.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20180302121942_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +136,7 @@ namespace Site.API.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Decription");
 
                     b.Property<string>("Name");
 

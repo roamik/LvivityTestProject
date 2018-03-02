@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using Site.API.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace MyTestProject.Models
+namespace Site.API.Models
 {
   public class User : IdentityUser
   {

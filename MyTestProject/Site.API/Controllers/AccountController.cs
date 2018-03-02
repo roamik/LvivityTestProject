@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MyTestProject.Models;
-using MyTestProject.Options;
 using Site.API.BindingModels;
+using Site.API.Options;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Site.API.Models;
 
 namespace Site.API.Controllers
 {
@@ -68,9 +68,6 @@ namespace Site.API.Controllers
             expires: DateTime.UtcNow.AddMinutes(30),
             signingCredentials: creds);
 
-        //await _userManager.AddToRoleAsync(user, "Member");
-
-
         return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
       }
 
@@ -100,6 +97,8 @@ namespace Site.API.Controllers
           claims,
           expires: DateTime.Now.AddMinutes(30),
           signingCredentials: creds);
+
+      await _userManager.AddToRoleAsync(user, "Member");
 
       return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
     }

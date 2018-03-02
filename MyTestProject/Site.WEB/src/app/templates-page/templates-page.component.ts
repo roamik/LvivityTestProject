@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
+import { Router } from '@angular/router';
+import { AuthGuard } from '../_guards/auth.guard';
 
 @Component({
     selector: 'templates-page',
@@ -13,7 +15,13 @@ export class TemplatesPageComponent implements OnInit {
 
     template: Template = new Template();
 
-    constructor(private templatesService: TemplatesService) { }
+    templateId: any;
+
+    constructor(
+        private guard: AuthGuard,
+        private router: Router,
+        private templatesService: TemplatesService
+    ) { }
 
     ngOnInit() {
         this.getMyTemplates();
@@ -21,8 +29,10 @@ export class TemplatesPageComponent implements OnInit {
 
     getMyTemplates() {
         this.templatesService.getTemplates().subscribe(
-            templates => { this.templates = templates },
-            error => {}
+            templates => {
+                this.templates = templates;
+            },
+            error => { }
         );
     }
 
@@ -36,4 +46,14 @@ export class TemplatesPageComponent implements OnInit {
             error => {
             });
     }
+
+    deleteTemplate(template) {
+        this.templatesService.deleteTemplate(template.id)
+            .subscribe(
+            template => {
+            },
+            error => {
+            });
+    }
+
 }

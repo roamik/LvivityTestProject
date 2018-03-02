@@ -159,7 +159,7 @@ namespace Site.API.Migrations
                 name: "Templates",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     Decription = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),

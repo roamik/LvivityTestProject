@@ -1,12 +1,13 @@
-<form #f="ngForm" (ngSubmit)="f.vaild && addTemplate()" novalidate>
+<form #f="ngForm" (ngSubmit)="f.vaild && updateTemplateInfo()" novalidate>
     <div class="fieldWrap">
-        <h1>New Template</h1>
+        <h1>Edit</h1>
+
         <div class="row">
             <div class="col-xs-6">
                 <p class="boldLables text-right">Name:</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="name" placeholder="Give a name" [(ngModel)]="template.name" #name="ngModel" ngModel required
+                <input type="text" name="name" placeholder="Name" [(ngModel)]="template.name" #name="ngModel" ngModel required
                        maxlength="8" />
 
                 <div class="md-errors-spacer" [hidden]="name.valid || name.untouched">
@@ -58,28 +59,6 @@
             </div>
         </div>
 
-        <button type="button" [disabled]="!f.valid" class="btn btn-primary center-block" (click)="addTemplate()">Create</button>
+        <button type="submit" class="btn btn-primary center-block" (click)="updateTemplateInfo()">Save</button>
     </div>
 </form>
-<div class="block">
-    <table *ngIf="templates.length>0" align="center" border="1" cellpadding="0" cellspacing="0">
-        <tr id="headers">
-            <th>Name</th>
-            <th>Content</th>
-            <th>Description</th>
-            <th></th>
-        </tr>
-        <tr id="templates" *ngFor="let template of templates">
-            <td>{{ template.name }}</td>
-            <td>{{ template.content }}</td>
-            <td>{{ template.description }}</td>
-            <td>
-                <a [routerLink]="['/edit', template.id]"><span>Edit</span></a>
-                <a><span (click)="deleteTemplate(template)">Delete</span></a>
-            </td>
-        </tr>
-    </table>
-    <span *ngIf="templates.length ===0">
-        You don't have any templates. Add one.
-    </span>
-</div>

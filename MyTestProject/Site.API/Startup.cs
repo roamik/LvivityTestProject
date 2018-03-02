@@ -12,11 +12,13 @@ using Site.API.Configuration;
 using System;
 using Site.API.Helpers;
 using System.Text;
-using MyTestProject.Options;
+using Microsoft.AspNetCore.Authorization;
 using Site.API.DAL.Abstract;
 using Site.API.DAL.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Site.API.Models;
+using Site.API.Options;
 
 namespace Site.API
 {
@@ -112,7 +114,20 @@ namespace Site.API
         };
       });
 
-      services.AddMvc();
+      var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("DefaultPolicy", policy);
+        options.DefaultPolicy = policy;
+      });
+
+      services.AddMvc(config =>
+      {
+        config.Filters.Add(new AuthorizeFilter(policy));
+      });
 
       services.AddSwaggerGen(c =>
       {
@@ -150,7 +165,7 @@ namespace Site.API
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
         ((UserRoleSeed)roleSeed).Initialize(roleManager).Wait();
-      }     
+      }
     }
   }
 }

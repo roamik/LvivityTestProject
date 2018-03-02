@@ -1,12 +1,10 @@
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using MyTestProject.Models;
+using Site.API.Models;
 
 namespace Site.API.Controllers
 {

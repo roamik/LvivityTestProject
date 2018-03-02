@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyTestProject.Models;
 using Site.API.DAL.Abstract;
 using Site.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,40 @@ namespace Site.API.DAL.Concrete
     public async Task<int> Save()
     {
       return await _context.SaveChangesAsync();
+    }
+
+    public async Task<Template> GetByIdAsync(object id)
+    {
+      return await _context.Templates.FindAsync(id);
+    }
+
+    public void Delete(Template entity)
+    {
+      if (_context.Entry(entity).State == EntityState.Detached)
+      {
+        _context.Templates.Attach(entity);
+      }
+      _context.Templates.Remove(entity);
+    }
+
+    public async Task<bool> ExistAsync(Guid key)
+    {
+      return await _context.Templates.AnyAsync(o => o.Id == key);
+    }
+
+    public async Task<Template> FirstAsync(Guid id)
+    {
+      return await _context.Templates.FirstOrDefaultAsync(o => o.Id == id);
+    }
+
+    public virtual Template Update(Template entity)
+    {
+      if (_context.Entry(entity).State == EntityState.Detached)
+      {
+        _context.Templates.Attach(entity);
+      }
+       _context.Entry(entity).State = EntityState.Modified;
+      return entity;
     }
   }
 }
