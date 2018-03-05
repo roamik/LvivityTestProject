@@ -6,15 +6,14 @@
                 <p class="boldLables text-right">Name:</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="name" placeholder="Give a name" [(ngModel)]="template.name" #name="ngModel" ngModel required
-                       maxlength="8" />
+                <input type="text" name="name" minlength="4" maxlength="8" placeholder="Give a name" [(ngModel)]="template.name" #name="ngModel" required />
 
-                <div class="md-errors-spacer" [hidden]="name.valid || name.untouched">
-                    <div *ngIf="f.submitted && name.errors && name.errors.required">
-                        <span>Name is required!</span>
-                    </div>
-                    <div *ngIf="f.submitted && name.errors">
-                        <span>Name is invalid!</span>
+                <div class="md-errors-spacer" *ngIf="name.invalid && (name.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="name.errors.required">
+                        Name is required.
+                    </small>
+                    <div class="md-errors-spacer" *ngIf="name.errors.minlength">
+                        Name is min. 4 char. long!.
                     </div>
                 </div>
             </div>
@@ -25,15 +24,14 @@
                 <p class="boldLables text-right">Description:</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="description" placeholder="Description" [(ngModel)]="template.description" #description="ngModel" ngModel required
-                       maxlength="15" />
+                <input type="text" name="description" minlength="4" maxlength="15" placeholder="Description" [(ngModel)]="template.description" #description="ngModel" required />
 
-                <div class="md-errors-spacer" [hidden]="description.valid || description.untouched">
-                    <div *ngIf="f.submitted && description.errors && description.errors.required">
-                        <span>Description is required!</span>
-                    </div>
-                    <div *ngIf="f.submitted && description.errors">
-                        <span>Description is invalid!</span>
+                <div class="md-errors-spacer" *ngIf="description.invalid && (description.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="description.errors.required">
+                        Description is required.
+                    </small>
+                    <div class="md-errors-spacer" *ngIf="description.errors.minlength">
+                        Description is min. 4 char. long!.
                     </div>
                 </div>
             </div>
@@ -44,15 +42,15 @@
                 <p class="boldLables text-right">Content:</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="content" placeholder="Content" [(ngModel)]="template.content" #content="ngModel" ngModel required
-                       maxlength="10" />
 
-                <div class="md-errors-spacer" [hidden]="content.valid || content.untouched">
-                    <div *ngIf="f.submitted && content.errors && content.errors.required">
-                        <span>Content is required!</span>
-                    </div>
-                    <div *ngIf="f.submitted && content.errors">
-                        <span>Content is invalid!</span>
+                <textarea name="content" minlength="4" placeholder="Html here" [(ngModel)]="template.content" #content="ngModel" required></textarea>
+
+                <div class="md-errors-spacer" *ngIf="content.invalid && (content.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="content.errors.required">
+                        Content is required.
+                    </small>
+                    <div class="md-errors-spacer" *ngIf="content.errors.minlength">
+                        Content is min. 4 char. long!.
                     </div>
                 </div>
             </div>
@@ -61,6 +59,7 @@
         <button type="button" [disabled]="!f.valid" class="btn btn-primary center-block" (click)="addTemplate()">Create</button>
     </div>
 </form>
+<div class="fieldWrap">
 <div class="block">
     <table *ngIf="templates.length>0" align="center" border="1" cellpadding="0" cellspacing="0">
         <tr id="headers">
@@ -79,7 +78,8 @@
             </td>
         </tr>
     </table>
-    <span *ngIf="templates.length ===0">
+    <span *ngIf="templates.length === 0">
         You don't have any templates. Add one.
     </span>
+</div>
 </div>

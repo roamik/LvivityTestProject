@@ -12,3 +12,11 @@
 table {
     width: 100%;
 }
+
+textarea {
+    margin: 0;
+    width: 175px;
+    height: 65px;
+    border: 1px solid #888;
+    resize:none;
+}

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Site.API.BindingModels;
 using Site.API.DAL.Abstract;
-using Site.API.DAL.Concrete;
 using Site.API.Models;
 
 namespace Site.API.Controllers

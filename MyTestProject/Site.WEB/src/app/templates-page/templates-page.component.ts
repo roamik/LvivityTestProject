@@ -42,6 +42,7 @@ export class TemplatesPageComponent implements OnInit {
             .subscribe(
             template => {
                 this.template = template;
+                this.getMyTemplates();
             },
             error => {
             });
@@ -50,7 +51,9 @@ export class TemplatesPageComponent implements OnInit {
     deleteTemplate(template) {
         this.templatesService.deleteTemplate(template.id)
             .subscribe(
-            template => {
+            success => {
+
+                this.getMyTemplates();
             },
             error => {
             });
