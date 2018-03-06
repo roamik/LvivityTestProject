@@ -1,9 +1,9 @@
-using Site.API.Models;
+using Site.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Site.API.DAL.Abstract
+namespace Site.DAL.Abstract
 {
   public interface ITemplatesRepository
   {

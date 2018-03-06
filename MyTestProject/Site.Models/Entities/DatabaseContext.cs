@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MyTestProject.Models;
 
-namespace Site.API.Models
+namespace Site.Models.Entities
 {
   public class DatabaseContext : IdentityDbContext<User>
   {

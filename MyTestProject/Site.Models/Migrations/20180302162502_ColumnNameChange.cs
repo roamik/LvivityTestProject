@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace Site.API.Migrations
+namespace Site.Models.Migrations
 {
     public partial class ColumnNameChange : Migration
     {

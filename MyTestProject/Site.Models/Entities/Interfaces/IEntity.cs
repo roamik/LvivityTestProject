@@ -1,6 +1,6 @@
 using System;
 
-namespace Site.API.Models.Interfaces
+namespace Site.Models.Entities.Interfaces
 {
   public interface IEntity
   {

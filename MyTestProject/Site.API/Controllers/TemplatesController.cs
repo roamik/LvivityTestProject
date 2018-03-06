@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Site.API.BindingModels;
-using Site.API.DAL.Abstract;
-using Site.API.Models;
+using Site.DAL.Abstract;
+using Site.Models.BindingModels;
+using Site.Models.Entities;
 
 namespace Site.API.Controllers
 {

@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
-namespace Site.API.Models
+namespace Site.Models.Entities
 {
   public class User : IdentityUser
   {

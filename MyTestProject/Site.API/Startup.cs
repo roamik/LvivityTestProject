@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using MyTestProject.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -13,12 +12,12 @@ using System;
 using Site.API.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Site.API.DAL.Abstract;
-using Site.API.DAL.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Site.API.Models;
-using Site.API.Options;
+using Site.DAL.Abstract;
+using Site.DAL.Concrete;
+using Site.Models.Entities;
+using Site.Models.Options;
 
 namespace Site.API
 {

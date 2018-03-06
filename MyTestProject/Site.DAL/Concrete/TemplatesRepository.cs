@@ -1,14 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MyTestProject.Models;
-using Site.API.DAL.Abstract;
-using Site.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Site.DAL.Abstract;
+using Site.Models.Entities;
 
-namespace Site.API.DAL.Concrete
+namespace Site.DAL.Concrete
 {
   public class TemplatesRepository : ITemplatesRepository
   {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Site.API.Models;
+using Site.Models.Entities;
 
 namespace Site.API.Controllers
 {

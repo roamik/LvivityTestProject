@@ -12,17 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180301150058_Initial.cs" />
-    <Compile Remove="Migrations\20180301150058_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20180301150351_initial.cs" />
-    <Compile Remove="Migrations\20180301150351_initial.Designer.cs" />
-    <Compile Remove="Migrations\20180302120941_IdTypeChangeTemplate.cs" />
-    <Compile Remove="Migrations\20180302120941_IdTypeChangeTemplate.Designer.cs" />
-    <Compile Remove="Migrations\20180302121634_IdTypeChangeTemplate.cs" />
-    <Compile Remove="Migrations\20180302121634_IdTypeChangeTemplate.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
@@ -36,6 +25,11 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Site.DAL\Site.DAL.csproj" />
+    <ProjectReference Include="..\Site.Models\Site.Models.csproj" />
   </ItemGroup>
 
 </Project>

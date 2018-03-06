@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Site.API.BindingModels
+namespace Site.Models.BindingModels
 {
   public class UpdateTemplateBindingModel
   {

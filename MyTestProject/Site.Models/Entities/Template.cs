@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Site.API.Models.Interfaces;
+using Site.Models.Entities.Interfaces;
 
-namespace Site.API.Models
+namespace Site.Models.Entities
 {
   public class Template : IEntity
   {
