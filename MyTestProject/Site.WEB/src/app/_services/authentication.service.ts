@@ -29,7 +29,6 @@ export class AuthenticationService {
     }
 
     public login(model) {
-        debugger;
         return this.http.post(this.BASEURL + 'api/account/login', model, { headers: Headers })
 
             .map((response: any) => {
