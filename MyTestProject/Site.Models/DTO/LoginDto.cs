@@ -1,11 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Site.Models.BindingModels
+namespace Site.Models.DTO
 {
-  public class RegisterDto
+  public class LoginDto
   {
-
-    public string Name { get; set; }
 
     [Required(ErrorMessage = "Email is required")]
     [DataType(DataType.EmailAddress, ErrorMessage = "Email isnt valid")]

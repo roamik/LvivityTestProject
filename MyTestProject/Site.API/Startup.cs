@@ -18,6 +18,7 @@ using Site.DAL.Abstract;
 using Site.DAL.Concrete;
 using Site.Models.Entities;
 using Site.Models.Options;
+using AutoMapper;
 
 namespace Site.API
 {
@@ -122,6 +123,8 @@ namespace Site.API
         options.AddPolicy("DefaultPolicy", policy);
         options.DefaultPolicy = policy;
       });
+
+      services.AddAutoMapper();
 
       services.AddMvc(config =>
       {

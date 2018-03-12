@@ -6,6 +6,8 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Template } from '../_models/template';
+import { PageModel } from '../_models/PageModel';
+
 
 @Injectable()
 export class TemplatesService {
@@ -18,9 +20,9 @@ export class TemplatesService {
         return this.http.get<Template>(this.BASEURL + 'api/templates/' + id);
     }
 
-    getTemplates(): Observable<Template[]> {
-        var url = 'api/templates/my' ;
-        return this.http.get<Template[]>(this.BASEURL + url);
+    getTemplates(page: number, count: number): Observable<PageModel<Template>> {
+        var url = 'api/templates?page=' + page + '&count=' + count;
+        return this.http.get<PageModel<Template>>(this.BASEURL + url);    
     }
 
     add(model): Observable<Template> {

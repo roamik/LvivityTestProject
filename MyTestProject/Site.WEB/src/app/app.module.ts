@@ -2,8 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -51,7 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserModule,
         RouterModule.forRoot(appRoutes),
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        MatPaginatorModule,
+        BrowserAnimationsModule
     ],
     providers: [{
             provide: HTTP_INTERCEPTORS,

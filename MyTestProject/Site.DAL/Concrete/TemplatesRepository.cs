@@ -18,9 +18,12 @@ namespace Site.DAL.Concrete
     }
 
 
-    public async Task<List<Template>> GetFilteredByUserIdAsync(string id)
+    public async Task<List<Template>> GetPagedAsync(string id, int page, int count)
     {
-      var templateList = await _context.Templates.Where(t => t.UserId == id).ToListAsync();
+      var templateList = await _context.Templates.Where(t => t.UserId == id)
+        .Skip(page * count)
+        .Take(count)
+        .ToListAsync();
       return templateList;
     }
 
@@ -28,6 +31,8 @@ namespace Site.DAL.Concrete
     {
       return (await _context.Templates.AddAsync(template)).Entity;
     }
+
+
 
     public async Task<int> Save()
     {
@@ -66,6 +71,11 @@ namespace Site.DAL.Concrete
       }
        _context.Entry(entity).State = EntityState.Modified;
       return entity;
+    }
+
+    public async Task<int> CountAsync(string id)
+    {
+      return await _context.Templates.Include(u => u.User).Where(u => u.UserId == id).CountAsync();
     }
   }
 }

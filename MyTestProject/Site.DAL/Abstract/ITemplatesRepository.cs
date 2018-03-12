@@ -7,7 +7,7 @@ namespace Site.DAL.Abstract
 {
   public interface ITemplatesRepository
   {
-    Task<List<Template>> GetFilteredByUserIdAsync(string id);
+    Task<List<Template>> GetPagedAsync(string id, int page, int count);
     Task<Template> AddAsync(Template template);
     Task<int> Save();
     Task<bool> ExistAsync(Guid key);
@@ -15,5 +15,6 @@ namespace Site.DAL.Abstract
     void Delete(Template entity);
     Task<Template> FirstAsync(Guid id);
     Template Update(Template entity);
+    Task<int> CountAsync(string id);
   }
 }

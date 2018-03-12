@@ -4,12 +4,17 @@ import { Template } from '../_models/template';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../_guards/auth.guard';
 
+
 @Component({
     selector: 'templates-page',
     templateUrl: './templates-page.component.html',
     styleUrls: ['./templates-page.component.css']
 })
 export class TemplatesPageComponent implements OnInit {
+
+    length: number;
+    currentPage: number = 0;
+    productCount: number = 4;
 
     public templates: Array<Template> = [];
 
@@ -24,25 +29,27 @@ export class TemplatesPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.getMyTemplates();
+        this.getMyTemplates(this.currentPage);
     }
 
-    getMyTemplates() {
-        this.templatesService.getTemplates().subscribe(
-            templates => {
-                this.templates = templates;
+    getMyTemplates(page) {
+        this.currentPage = page;
+        this.templatesService.getTemplates(this.currentPage, this.productCount)
+            .subscribe(
+            pageModel => {
+                this.templates = pageModel.items;
+                this.length = pageModel.totalCount;
             },
             error => { }
-        );
+            );
     }
 
     addTemplate() {
-
         this.templatesService.add(this.template)
             .subscribe(
             template => {
                 this.template = template;
-                this.getMyTemplates();
+                this.getMyTemplates(this.currentPage);
             },
             error => {
             });
@@ -53,7 +60,7 @@ export class TemplatesPageComponent implements OnInit {
             .subscribe(
             success => {
 
-                this.getMyTemplates();
+                this.getMyTemplates(this.currentPage);
             },
             error => {
             });

@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Site.Models.Options;
-using Site.Models.BindingModels;
+using Site.Models.DTO;
 using Site.Models.Entities;
 
 namespace Site.API.Controllers
@@ -34,7 +34,7 @@ namespace Site.API.Controllers
     // POST api/account/login
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login([FromBody] LoginBindingModel model)
+    public async Task<IActionResult> Login([FromBody] LoginDto model)
     {
       var user = await _userManager.FindByEmailAsync(model.Email);
       //var role
@@ -76,7 +76,7 @@ namespace Site.API.Controllers
 
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterBindingModel model)
+    public async Task<IActionResult> Register([FromBody] RegisterDto model)
     {
       var user = new User { Name = model.Name, UserName = model.Email, Email = model.Email };
       var result = await _userManager.CreateAsync(user, model.Password);
