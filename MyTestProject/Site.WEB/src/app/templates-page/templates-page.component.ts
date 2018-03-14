@@ -3,6 +3,7 @@ import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../_guards/auth.guard';
+import { PageModel } from '../_models/PageModel';
 
 
 @Component({

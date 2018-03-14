@@ -12,7 +12,15 @@ export class NavbarComponent implements OnInit {
 
     constructor(private guard: AuthGuard) { }
 
+    private _opened: boolean = false;
+
+    private _toggleOpened(): void {
+        this._opened = !this._opened;
+    }
+
     ngOnInit() {
     }
+
+
 
 }

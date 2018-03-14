@@ -1,15 +1,52 @@
+<ng-sidebar [(opened)]="_opened"
+            [mode]="slide"
+            [keyClose]="false"
+            [dock]="true"
+            [dockedSize]="'0px'"
+            [autoCollapseHeight]="false"
+            [autoCollapseWidth]="false"
+            [closeOnClickOutside]="false"
+            [closeOnClickBackdrop]="false"
+            [showBackdrop]="false"
+            [animate]="true"
+            [trapFocus]="true"
+            [autoFocus]="true"
+            [sidebarClass]="'demo-sidebar'">
+    <button [routerLink]="['/home']" class="navButton"><i class="fas fa-home"> Dashboard</i></button>
+    <hr>
+    <button [routerLink]="['/templates']" class="navButton"><i class="fas fa-clipboard"> Templates</i></button>
+    <hr>
+    <button class="navButton"><i class="fas fa-home"> Administration</i></button>
+</ng-sidebar>
+
 <nav class="navbar navbar-inverse">
+
     <div class="container-fluid">
+
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">YourHourseIsFrog</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">MySite</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li *ngIf="isAuthenticated"><a routerLink="/templates">My templates</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            <li *ngIf="!isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="myNavbar">
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <!--<a href="" (click)="_toggleOpened()">Panel</a>-->
+                    <button class="control" (click)="_toggleOpened()"><i class="fas fa-home"></i></button>
+
+                </li>
+
+            </ul>    
+            <ul class="nav navbar-nav navbar-right">
+                <li *ngIf="isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li *ngIf="!isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+
     </div>
 </nav>
+

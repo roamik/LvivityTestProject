@@ -1,0 +1,40 @@
+.navbar-inverse {
+    border: none;
+}
+
+.navbar {
+    background-color: #4D4E55;
+    border-radius: 0;
+}
+
+.control {
+    position: relative;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px 15px;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+}
+
+.navButton {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: left;
+    padding: 8px 15px;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+}
+
+li:hover {
+    background-color: black;
+}
+
+.dropdown {
+    padding: 8px 1px;
+}
+

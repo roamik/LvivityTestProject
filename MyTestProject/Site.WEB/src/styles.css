@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 body {
     background-color: #C5C5C5;
     margin: 0;
@@ -7,9 +8,22 @@ body {
     height: 100%;
 }
 
-a:hover {
-    text-decoration: none;
+.container {
+    padding-right: 0;
+    padding-left: 0;
+    width: 100%;
 }
+
+.demo-sidebar {
+    background-color: #fff;
+    padding: 2em 1em;
+    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+}
+
+a {
+    color: white;
+}
+
 
 input {
     color: black;
@@ -37,15 +51,18 @@ hr {
 }
 
 .fieldWrap {
-    border: 2px solid black;
-    background: #118185;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    background: ghostwhite;
     margin-bottom: 1em;
     padding: 1em 1em;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 
 .blockFooter {
     background: #111010;
-    border-radius: 5px;
-    padding:0.3em;
+    border-radius: 0;
+    padding: 0.3em;
 }

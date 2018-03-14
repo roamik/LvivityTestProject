@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SidebarModule } from 'ng-sidebar';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -18,6 +20,7 @@ import { TemplatesPageComponent } from './templates-page/templates-page.componen
 import { TemplatesService } from './_services/templates.service';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { EditPageComponent } from './edit-page/edit-page.component';
+
 
 
 const appRoutes: Routes = [
@@ -55,7 +58,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpClientModule,
         MatPaginatorModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        AngularFontAwesomeModule,
+        SidebarModule.forRoot()
     ],
     providers: [{
             provide: HTTP_INTERCEPTORS,
@@ -68,4 +73,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

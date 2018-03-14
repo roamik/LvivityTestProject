@@ -1,5 +1,3 @@
-.loginForm {
-  background-color:darkcyan;
-  display:block;
-  text-align:center;
+ng-sidebar-container {
+    height: 100vh;
 }
