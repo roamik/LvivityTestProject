@@ -99,6 +99,7 @@ namespace Site.API.Controllers
           signingCredentials: creds);
 
       await _userManager.AddToRoleAsync(user, "Member");
+      await _userManager.AddToRoleAsync(user, "Admin");
 
       return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), id = user.Id });
     }

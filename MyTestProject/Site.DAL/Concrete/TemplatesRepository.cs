@@ -53,12 +53,12 @@ namespace Site.DAL.Concrete
       _context.Templates.Remove(entity);
     }
 
-    public async Task<bool> ExistAsync(Guid key)
+    public async Task<bool> ExistAsync(string key)
     {
       return await _context.Templates.AnyAsync(o => o.Id == key);
     }
 
-    public async Task<Template> FirstAsync(Guid id)
+    public async Task<Template> FirstAsync(string id)
     {
       return await _context.Templates.FirstOrDefaultAsync(o => o.Id == id);
     }

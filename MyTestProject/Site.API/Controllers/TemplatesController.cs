@@ -44,8 +44,8 @@ namespace Site.API.Controllers
     }
 
     [HttpGet]
-    [Route("{id:guid}")]
-    public async Task<IActionResult> GetTemplateByIdAsync(Guid id)
+    [Route("{id}")]
+    public async Task<IActionResult> GetTemplateByIdAsync(string id)
     {
       var template = await _templateRep.FirstAsync(id);
       if (template == null)
@@ -70,8 +70,8 @@ namespace Site.API.Controllers
     }
 
     [HttpDelete]
-    [Route("{id:guid}")]
-    public async Task<IActionResult> DeleteProduct(Guid id)
+    [Route("{id}")]
+    public async Task<IActionResult> DeleteProduct(string id)
     {
       if (!await _templateRep.ExistAsync(id))
       {
@@ -86,8 +86,8 @@ namespace Site.API.Controllers
     }
 
     [HttpPut]
-    [Route("{id:guid}")]
-    public async Task<IActionResult> Update([FromBody] TemplateDto model, Guid id)
+    [Route("{id}")]
+    public async Task<IActionResult> Update([FromBody] TemplateDto model, string id)
     {
       if (!ModelState.IsValid || model == null)
       {

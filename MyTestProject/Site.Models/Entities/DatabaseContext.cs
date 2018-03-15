@@ -35,6 +35,10 @@ namespace Site.Models.Entities
 
     public DbSet<Template> Templates { get; set; }
 
+    public DbSet<Project> Projects { get; set; }
+
+    public DbSet<UserProject> UserProjects { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,6 +48,25 @@ namespace Site.Models.Entities
               .HasMany(u => u.Templates)
               .WithOne(uc => uc.User)
               .HasForeignKey(uc => uc.UserId);
+
+      modelBuilder.Entity<User>()    // User 1 => N Projects
+        .HasMany(u => u.Projects)
+        .WithOne(uc => uc.User)
+        .HasForeignKey(uc => uc.UserId);
+
+      modelBuilder.Entity<UserProject>().HasKey(e => new { e.UserId, e.ProjectId });
+
+      modelBuilder.Entity<User>()    // User 1 => N InvolvedProjects
+        .HasMany(u => u.InvolvedProjects)
+        .WithOne(uc => uc.User)
+        .HasForeignKey(uc => uc.UserId);
+
+      modelBuilder.Entity<UserProject>()    // 1 project contains N LinkedUsers (linked users - users involved in project)
+        .HasOne(up => up.Project)
+        .WithMany(c => c.LinkedUsers)
+        .HasForeignKey(up => up.ProjectId);
+
+
     }
 
   }

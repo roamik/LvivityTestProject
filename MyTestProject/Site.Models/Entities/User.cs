@@ -9,6 +9,10 @@ namespace Site.Models.Entities
     public string Name { get; set; }
 
     //nav
-    public List<Template> Templates { get; set; }
+    public virtual List<Template> Templates { get; set; }
+
+    public virtual List<Project> Projects { get; set; }
+
+    public virtual List<UserProject> InvolvedProjects { get; set; } // projects where user is involved in
   }
 }
