@@ -1,23 +1,4 @@
-<ng-sidebar [(opened)]="_opened"
-            [mode]="slide"
-            [keyClose]="false"
-            [dock]="true"
-            [dockedSize]="'0px'"
-            [autoCollapseHeight]="false"
-            [autoCollapseWidth]="false"
-            [closeOnClickOutside]="false"
-            [closeOnClickBackdrop]="false"
-            [showBackdrop]="false"
-            [animate]="true"
-            [trapFocus]="true"
-            [autoFocus]="true"
-            [sidebarClass]="'demo-sidebar'">
-    <button [routerLink]="['/home']" class="navButton"><i class="fas fa-home"> Dashboard</i></button>
-    <hr>
-    <button [routerLink]="['/templates']" class="navButton"><i class="fas fa-clipboard"> Templates</i></button>
-    <hr>
-    <button class="navButton"><i class="fas fa-home"> Administration</i></button>
-</ng-sidebar>
+
 
 <nav class="navbar navbar-inverse">
 
@@ -29,21 +10,37 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">MySite</a>
+            <a class="navbar-brand" id="textColor">MySite</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
 
             <ul class="nav navbar-nav">
                 <li>
                     <!--<a href="" (click)="_toggleOpened()">Panel</a>-->
-                    <button class="control" (click)="_toggleOpened()"><i class="fas fa-home"></i></button>
+                    <button class="control"><i class="fas fa-align-justify"></i></button>
 
                 </li>
 
             </ul>    
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-                <li *ngIf="!isAuthenticated"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+                <li *ngIf="isAuthenticated">
+                    <form>
+                        <input type="text" name="search" placeholder="Search..">
+                    </form>
+                </li>
+
+                <li *ngIf="isAuthenticated">
+                    <a routerLink="/settings"><i class="fas fa-cog"></i> Settings</a>
+                </li>
+
+                <li *ngIf="isAuthenticated">
+                    <a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                </li>
+
+                <li *ngIf="!isAuthenticated">
+                    <a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
             </ul>
         </div>
 

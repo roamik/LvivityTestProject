@@ -15,7 +15,7 @@ export class TemplatesPageComponent implements OnInit {
 
     length: number;
     currentPage: number = 0;
-    productCount: number = 4;
+    templateCount: number = 4;
 
     public templates: Array<Template> = [];
 
@@ -35,7 +35,7 @@ export class TemplatesPageComponent implements OnInit {
 
     getMyTemplates(page) {
         this.currentPage = page;
-        this.templatesService.getTemplates(this.currentPage, this.productCount)
+        this.templatesService.getTemplates(this.currentPage, this.templateCount)
             .subscribe(
             pageModel => {
                 this.templates = pageModel.items;

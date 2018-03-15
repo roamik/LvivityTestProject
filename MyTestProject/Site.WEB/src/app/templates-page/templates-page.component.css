@@ -1,8 +1,14 @@
-#headers{
+#headers {
     background-color: #a5a5a5;
 }
+
 #templates {
     background-color: #eaeaea;
+}
+
+h1 {
+    color: lightgreen;
+    text-shadow: 0.5px 0.5px black;
 }
 
 table {
@@ -13,6 +19,40 @@ textarea {
     margin: 0;
     width: 175px;
     height: 65px;
-    border: 1px solid #888;
-    resize:none;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    outline: none;
+    transition: 0.5s;
 }
+
+    textarea:focus {
+        border: 1.5px solid #555;
+    }
+
+td a {
+    color: black;
+    text-decoration: none;
+}
+
+mat-paginator {
+    margin: 20px;
+    border-radius: 4px;
+    background-color: ghostwhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type=text] {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    transition: 0.5s;
+    outline: none;
+}
+
+    input[type=text]:focus {
+        border: 1.5px solid #555;
+    }
+

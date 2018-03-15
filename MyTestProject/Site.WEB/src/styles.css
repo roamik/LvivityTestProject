@@ -15,8 +15,8 @@ body {
 }
 
 .demo-sidebar {
-    background-color: #fff;
-    padding: 2em 1em;
+    background-color: ghostwhite;
+    width: 170px;
     box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
 }
 
@@ -32,10 +32,19 @@ input {
 
 
 .btn-primary {
-    background-color: black;
-    width: 150px;
+    width: 100px;
 }
 
+.center-block {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.text-right {
+    font-size: 15px;
+    font-weight: bold;
+    color: lightcoral;
+}
 
 h1, h2 {
     text-align: center;
@@ -50,14 +59,54 @@ hr {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.fieldWrap {
-    border: 0.5px solid black;
-    border-radius: 5px;
-    background: ghostwhite;
-    margin-bottom: 1em;
-    padding: 1em 1em;
-    margin-left: 20px;
-    margin-right: 20px;
+.bigDataBlock {
+    background-color: ghostwhite;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 2em 2em;
+    margin: 20px;
+}
+
+.loginDataBlock {
+    background-color: ghostwhite;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 2em 2em;
+    margin-top: 20px;
+}
+
+.registerDataBlock {
+    background-color: ghostwhite;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 2em 2em;
+    margin-top: 20px;
+}
+
+
+input[type=password] {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    transition: 0.5s;
+    outline: none;
+}
+
+    input[type=password]:focus {
+        border: 1.5px solid #555;
+    }
+
+.md-errors-spacer {
+    color: red;
+    text-shadow: 0.2px 0.2px black;
 }
 
 

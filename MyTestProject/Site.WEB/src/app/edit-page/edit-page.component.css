@@ -2,6 +2,39 @@ textarea {
     margin: 0;
     width: 175px;
     height: 65px;
-    border: 1px solid #888;
-    resize: inherit;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    outline: none;
+    transition: 0.5s;
+}
+
+textarea:focus {
+    border: 1.5px solid #555;
+}
+
+
+input[type=text] {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 1.5px solid #555;
+}
+
+.loginDataBlock {
+    background-color: ghostwhite;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 2em 2em;
+    margin-top: 20px;
 }

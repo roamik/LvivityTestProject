@@ -20,6 +20,8 @@ import { TemplatesPageComponent } from './templates-page/templates-page.componen
 import { TemplatesService } from './_services/templates.service';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { ProjectsListPageComponent } from './projects-list-page/projects-list-page.component';
+import { ProjectViewComponent } from './project-view/project-view.component';
 
 
 
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
     { path: "templates", component: TemplatesPageComponent, canActivate: [AuthGuard] },
     { path: "edit/:id", component: EditPageComponent, canActivate: [AuthGuard] },
+    { path: "projects", component: ProjectsListPageComponent, canActivate: [AuthGuard] },
 
     {
         path: "",
@@ -50,7 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         RegisterPageComponent,
         NavbarComponent,
         TemplatesPageComponent,
-        EditPageComponent
+        EditPageComponent,
+        ProjectsListPageComponent,
+        ProjectViewComponent
     ],
     imports: [
         BrowserModule,

@@ -1,6 +1,7 @@
 <form #f="ngForm" (ngSubmit)="login()" novalidate>
-    <div class="fieldWrap">
+    <div class="loginDataBlock">
         <h1>Login</h1>
+        <hr/>
         <div class="row">
             <div class="col-xs-6">
                 <p class="boldLables text-right">Email:</p>
@@ -38,7 +39,8 @@
                 </div>
             </div>
         </div>
-            <button class="btn btn-primary center-block">Login</button>
-            <button routerLink="/register" class="btn btn-primary center-block">Register</button>
+        <button class="btn btn-primary center-block">Login</button>
+        
+        <button routerLink="/register" class="btn btn-primary center-block">Register</button>
     </div>
 </form>

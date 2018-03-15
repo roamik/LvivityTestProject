@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
     title = 'app';
 
-    
+    private _opened: boolean = true;
+
+    private _toggleOpened(): void {
+        this._opened = !this._opened;
+    }
 }

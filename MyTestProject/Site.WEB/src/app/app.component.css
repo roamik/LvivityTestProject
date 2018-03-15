@@ -1,3 +1,33 @@
 ng-sidebar-container {
     height: 100vh;
 }
+
+footer {
+    border-radius: 4px;
+    margin-top: 20px;
+    color: ghostwhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.control {
+    position: relative;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px 15px;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+}
+
+.navButton {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: left;
+    padding: 8px 15px;
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+}

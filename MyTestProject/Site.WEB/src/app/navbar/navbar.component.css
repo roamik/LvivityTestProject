@@ -1,10 +1,16 @@
 .navbar-inverse {
     border: none;
+    margin: 0;
 }
 
 .navbar {
     background-color: #4D4E55;
     border-radius: 0;
+}
+
+#textColor {
+    color: lightseagreen;
+    text-shadow: 0.5px 0.5px black;
 }
 
 .control {
@@ -18,23 +24,26 @@
     border: none;
 }
 
-.navButton {
-    position: relative;
-    width: 100%;
-    font-size: 16px;
-    text-decoration: none;
-    text-align: left;
-    padding: 8px 15px;
-    display: inline-block;
-    background-color: transparent;
-    border: none;
-}
-
-li:hover {
-    background-color: black;
-}
-
 .dropdown {
     padding: 8px 1px;
 }
 
+input[type=text] {
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    margin-top: 2.5px;
+    outline: none;
+    transition: 0.5s;
+}
+
+    input[type=text]:hover {
+        border: 1.5px solid #555;
+    }
