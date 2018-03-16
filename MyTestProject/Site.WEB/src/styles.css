@@ -91,6 +91,13 @@ hr {
     margin-top: 20px;
 }
 
+mat-paginator {
+    margin: 20px;
+    border-radius: 4px;
+    background-color: ghostwhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 
 input[type=password] {
     border: 2px solid #ccc;

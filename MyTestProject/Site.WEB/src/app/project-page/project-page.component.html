@@ -1,0 +1,19 @@
+<div class="projectInfoBlock">
+
+    <h1>{{project.name}}</h1>
+
+    <img class="projectPicture" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Picture">
+
+    <div class="projectDevelopers">
+        <p>{{project.description}}</p>
+    </div>
+
+    <div class="projectDescription">
+        <p>{{project.description}}</p>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="projectModal.open()">Modal</button>
+
+</div>
+
+<project-edit-modal #projectModal (change)="onProjectInfoUpdated($event)"></project-edit-modal>

@@ -50,7 +50,7 @@ namespace Site.API.Controllers
       var template = await _templateRep.FirstAsync(id);
       if (template == null)
       {
-        return BadRequest("User not found!");
+        return BadRequest("Template not found!");
       }
 
       return Ok(_mapper.Map<TemplateDto>(template));

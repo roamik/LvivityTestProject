@@ -1,3 +1,19 @@
-<p>
-  projects-list-page works!
-</p>
+
+<div class="row">
+    <div class="col-xs-9 col-md-10">
+        <h1>Your projects</h1>
+    </div>
+    <div class="col-xs-3 col-md-2">
+        <button [routerLink]="['/projects/create']" class="btn btn-primary">New project</button>
+    </div>
+</div>
+
+<div id="projectList">
+    <project-view *ngFor="let project of projects" [project]="project"></project-view>
+</div>
+
+<mat-paginator [length]="length"
+               [pageSize]="projectCount"
+               [pageIndex]="currentPage"
+               (page)="getProjects($event.pageIndex)">
+</mat-paginator>

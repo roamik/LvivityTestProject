@@ -1,3 +1,16 @@
-<p>
-  project-view works!
-</p>
+<a class="projectArea" [routerLink]="['/project', project.id]">
+    <div class="viewArea">
+        <p>
+            <i class="fas fa-archive"></i>
+            <b>Name: </b>{{ project.name }}
+        </p>
+
+        <p>
+            <i class="fas fa-at"></i>
+            <b>Description: </b>{{ project.description }}
+        </p>
+
+            <img class="projectPicture" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Picture">
+
+    </div>
+</a>

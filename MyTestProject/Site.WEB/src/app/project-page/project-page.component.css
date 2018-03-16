@@ -1,0 +1,47 @@
+.projectInfoBlock {
+    background-color: ghostwhite;
+    overflow: auto;
+    color: black;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding: 20px 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.projectPicture {
+    overflow: auto;
+    display: block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}
+
+.projectDescription {
+    background-color: lightblue;
+    overflow: auto;
+    color: black;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 20px;
+    padding: 10px 10px;
+}
+
+.projectDevelopers {
+    background-color: lightcoral;
+    overflow: auto;
+    color: black;
+    display: block;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 20px;
+    padding: 10px 10px;
+}

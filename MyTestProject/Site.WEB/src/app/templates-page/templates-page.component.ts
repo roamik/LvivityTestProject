@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../_guards/auth.guard';
-import { PageModel } from '../_models/PageModel';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class TemplatesPageComponent implements OnInit {
     template: Template = new Template();
 
     templateId: any;
-
+    
     constructor(
         private guard: AuthGuard,
         private router: Router,
@@ -32,6 +31,7 @@ export class TemplatesPageComponent implements OnInit {
     ngOnInit() {
         this.getMyTemplates(this.currentPage);
     }
+
 
     getMyTemplates(page) {
         this.currentPage = page;

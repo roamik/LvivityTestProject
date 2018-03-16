@@ -3,25 +3,35 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SidebarModule } from 'ng-sidebar';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ModalModule } from 'ngx-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { AuthenticationService } from './_services/authentication.service';
 import { RegisterPageComponent } from './register-page/register-page.component';
-import { AuthGuard } from './_guards/auth.guard';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TemplatesPageComponent } from './templates-page/templates-page.component';
-import { TemplatesService } from './_services/templates.service';
-import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { ProjectsListPageComponent } from './projects-list-page/projects-list-page.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
+import { ProjectPageComponent } from './project-page/project-page.component';
+import { ProjectCreationPageComponent } from './project-creation-page/project-creation-page.component';
+import { ProjectEditModalComponent } from './project-edit-modal/project-edit-modal.component';
+
+import { ProjectsService } from './_services/projects.service';
+import { AuthenticationService } from './_services/authentication.service';
+import { TemplatesService } from './_services/templates.service';
+import { BsModalService } from 'ngx-bootstrap'
+
+import { TokenInterceptor } from './_interceptors/token.interceptor';
+
+import { AuthGuard } from './_guards/auth.guard';
+
 
 
 
@@ -31,7 +41,9 @@ const appRoutes: Routes = [
     { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
     { path: "templates", component: TemplatesPageComponent, canActivate: [AuthGuard] },
     { path: "edit/:id", component: EditPageComponent, canActivate: [AuthGuard] },
+    { path: "project/:id", component: ProjectPageComponent, canActivate: [AuthGuard] },
     { path: "projects", component: ProjectsListPageComponent, canActivate: [AuthGuard] },
+    { path: "projects/create", component: ProjectCreationPageComponent, canActivate: [AuthGuard] },
 
     {
         path: "",
@@ -55,7 +67,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         TemplatesPageComponent,
         EditPageComponent,
         ProjectsListPageComponent,
-        ProjectViewComponent
+        ProjectViewComponent,
+        ProjectPageComponent,
+        ProjectCreationPageComponent,
+        ProjectEditModalComponent
     ],
     imports: [
         BrowserModule,
@@ -65,6 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatPaginatorModule,
         BrowserAnimationsModule,
         AngularFontAwesomeModule,
+        NgSelectModule,
+        ModalModule.forRoot(),
         SidebarModule.forRoot()
     ],
     providers: [{
@@ -74,6 +91,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         },
         AuthenticationService,
         TemplatesService,
+        ProjectsService,
+        BsModalService,
         AuthGuard
     ],
     bootstrap: [AppComponent]

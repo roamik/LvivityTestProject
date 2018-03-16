@@ -1,0 +1,12 @@
+h1 {
+    color: lightseagreen;
+    text-shadow: 0.5px 0.5px black;
+}
+
+#projectList {
+    display: block;
+}
+
+.btn-primary {
+    margin: 20px;
+}
