@@ -66,6 +66,11 @@ namespace Site.Models.Entities
         .WithMany(c => c.LinkedUsers)
         .HasForeignKey(up => up.ProjectId);
 
+      modelBuilder.Entity<UserProject>()    // 1 project contains N LinkedUsers (linked users - users involved in project)
+        .HasOne(up => up.User)
+        .WithMany(c => c.InvolvedProjects)
+        .HasForeignKey(up => up.UserId);
+
 
     }
 

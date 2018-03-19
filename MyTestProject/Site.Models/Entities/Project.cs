@@ -27,7 +27,7 @@ namespace Site.Models.Entities
 
     //navigation property
 
-    public virtual List<UserProject> LinkedUsers { get; set; } = new List<UserProject>();// users linked to this project
+    public virtual List<UserProject> LinkedUsers { get; set; }// users linked to this project
 
     
   }

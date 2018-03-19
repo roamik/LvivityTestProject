@@ -26,11 +26,13 @@ import { ProjectEditModalComponent } from './project-edit-modal/project-edit-mod
 import { ProjectsService } from './_services/projects.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { TemplatesService } from './_services/templates.service';
-import { BsModalService } from 'ngx-bootstrap'
+import { BsModalService } from 'ngx-bootstrap';
+import { UsersService } from './_services/users.service';
 
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 
 import { AuthGuard } from './_guards/auth.guard';
+;
 
 
 
@@ -93,6 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         TemplatesService,
         ProjectsService,
         BsModalService,
+        UsersService,
         AuthGuard
     ],
     bootstrap: [AppComponent]

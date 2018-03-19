@@ -16,6 +16,7 @@
     <None Remove="src\app\_services\authentication.service.ts" />
     <None Remove="src\app\_services\projects.service.ts" />
     <None Remove="src\app\_services\templates.service.ts" />
+    <None Remove="src\app\_services\users.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
@@ -30,6 +31,7 @@
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\projects.service.ts" />
     <TypeScriptCompile Include="src\app\_services\templates.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\users.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />

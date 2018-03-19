@@ -64,14 +64,14 @@ namespace Site.DAL.Concrete
       return await _context.Projects.FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public virtual Project Update(Project entity)
+    public virtual Project Update(Project project)
     {
-      if (_context.Entry(entity).State == EntityState.Detached)
+      if (_context.Entry(project).State == EntityState.Detached)
       {
-        _context.Projects.Attach(entity);
+        _context.Projects.Attach(project);
       }
-      _context.Entry(entity).State = EntityState.Modified;
-      return entity;
+      _context.Entry(project).State = EntityState.Modified;
+      return project;
     }
 
     public async Task<int> CountAsync(string id)

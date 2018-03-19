@@ -71,13 +71,15 @@
                     </div>
                     <div class="col-xs-6">
 
-                        <ng-select [items]="items"
-                                   bindLabel="name"
-                                   placeholder="Type to search"
+                        <ng-select name="user" [items]="users"
+                                   multiple ="true"
+                                   maxSelectedItems="2"
+                                   bindLabel="email"
+                                   placeholder="Select user"
                                    [typeahead]="typeahead"
-                                   [(ngModel)]="githubAccount">
+                                   [(ngModel)]="project.linkedUsers">
                             <ng-template ng-option-tmp let-item="item">
-                                {{item.name}}
+                                <b>{{item.name}}</b> {{item.email}}
                             </ng-template>
                         </ng-select>
 

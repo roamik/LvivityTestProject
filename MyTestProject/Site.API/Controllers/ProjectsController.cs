@@ -84,6 +84,7 @@ namespace Site.API.Controllers
       {
         return NotFound($"Item {id} doesn't exist!");
       }
+      
       var project = _mapper.Map<Project>(model);
 
       project = _projectsRep.Update(project);
