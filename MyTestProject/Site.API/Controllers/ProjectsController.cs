@@ -75,21 +75,31 @@ namespace Site.API.Controllers
     [Route("{id}")]
     public async Task<IActionResult> Update([FromBody] ProjectDto model, string id)
     {
-      if (!ModelState.IsValid || model == null)
+      try
       {
-        return BadRequest(ModelState);
-      }
+        model.User = null;
 
-      if (!await _projectsRep.ExistAsync(id))
+        if (!ModelState.IsValid || model == null)
+        {
+          return BadRequest(ModelState);
+        }
+
+        if (!await _projectsRep.ExistAsync(id))
+        {
+          return NotFound($"Item {id} doesn't exist!");
+        }
+
+        var project = _mapper.Map<Project>(model);
+
+        project = _projectsRep.Update(project);
+        //todo google how to create addOrUpdate method for UserProject
+        await _projectsRep.Save();
+        return Ok(_mapper.Map<ProjectDto>(project));
+      }
+      catch(Exception e)
       {
-        return NotFound($"Item {id} doesn't exist!");
+        return BadRequest(e);
       }
-      
-      var project = _mapper.Map<Project>(model);
-
-      project = _projectsRep.Update(project);
-      await _projectsRep.Save();
-      return Ok(_mapper.Map<ProjectDto>(project));
     }
   }
 }

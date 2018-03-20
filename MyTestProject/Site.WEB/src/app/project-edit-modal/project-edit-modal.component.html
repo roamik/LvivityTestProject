@@ -70,16 +70,17 @@
                         <p class="boldLables text-right">Add co-workers:</p>
                     </div>
                     <div class="col-xs-6">
-
-                        <ng-select name="user" [items]="users"
-                                   multiple ="true"
+                        <!--(selected)="selected($event)"
+                        (removed)="removed($event)"-->
+                        <ng-select name="user" [items]="userProjects"
+                                   multiple="true"
                                    maxSelectedItems="2"
-                                   bindLabel="email"
+                                   bindLabel="user.email"
                                    placeholder="Select user"
                                    [typeahead]="typeahead"
                                    [(ngModel)]="project.linkedUsers">
                             <ng-template ng-option-tmp let-item="item">
-                                <b>{{item.name}}</b> {{item.email}}
+                                <b>{{item.user.name}}</b> {{item.user.email}}
                             </ng-template>
                         </ng-select>
 

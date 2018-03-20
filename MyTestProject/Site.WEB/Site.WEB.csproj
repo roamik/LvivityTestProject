@@ -13,6 +13,7 @@
     <None Remove="src\app\_models\project.ts" />
     <None Remove="src\app\_models\template.ts" />
     <None Remove="src\app\_models\user.ts" />
+    <None Remove="src\app\_models\UserProject.ts" />
     <None Remove="src\app\_services\authentication.service.ts" />
     <None Remove="src\app\_services\projects.service.ts" />
     <None Remove="src\app\_services\templates.service.ts" />
@@ -28,6 +29,7 @@
     <TypeScriptCompile Include="src\app\_models\project.ts" />
     <TypeScriptCompile Include="src\app\_models\template.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
+    <TypeScriptCompile Include="src\app\_models\userProject.ts" />
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\projects.service.ts" />
     <TypeScriptCompile Include="src\app\_services\templates.service.ts" />

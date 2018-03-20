@@ -24,7 +24,8 @@ namespace Site.Models.Entities
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       optionsBuilder.UseSqlServer(_options?.Value?.DatabaseContext ??
-          "Server = DESKTOP-F84JFFC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true");
+          /*"Server = DESKTOP-F84JFFC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true"*/
+          "Server = ROAMPC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true");
     }
 
 

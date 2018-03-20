@@ -5,17 +5,19 @@ using Site.Models.Entities;
 
 namespace Site.Models.DTO
 {
-  public class UserDto
-  {
-    public string Name { get; set; }
+    public class UserDto
+    {
+        public string Id { get; set; }
 
-    public string Email { get; set; }
+        public string Name { get; set; }
 
-    //nav
-    public virtual List<TemplateDto> Templates { get; set; }
+        public string Email { get; set; }
 
-    public virtual List<ProjectDto> Projects { get; set; }
+        //nav
+        public virtual List<TemplateDto> Templates { get; set; }
 
-    public virtual List<UserProjectDto> InvolvedProjects { get; set; } = new List<UserProjectDto>(); // projects where user is involved in
-  }
+        public virtual List<ProjectDto> Projects { get; set; }
+
+        public virtual List<UserProjectDto> InvolvedProjects { get; set; } = new List<UserProjectDto>(); // projects where user is involved in
+    }
 }

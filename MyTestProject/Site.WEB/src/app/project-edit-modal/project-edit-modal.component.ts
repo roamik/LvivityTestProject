@@ -1,10 +1,12 @@
-import { Component, OnInit, TemplateRef, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Project } from '../_models/project';
 import { ProjectsService } from '../_services/projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../_models/user';
 import { UsersService } from '../_services/users.service';
+import * as _ from "lodash";
+import { UserProject } from '../_models/UserProject';
 
 @Component({
     selector: 'project-edit-modal',
@@ -19,14 +21,21 @@ export class ProjectEditModalComponent implements OnInit {
     @Output()
     change: EventEmitter<Project> = new EventEmitter<Project>();
 
+    project: Project = new Project();
+
+    @Input()
+    set projectId(value: string) {
+        this.project = new Project();
+        this.project.id = value;
+
+    }
+
     currentPage: number = 0;
     usersCount: number = 10;
 
-    public users: Array<User> = [];
+    public userProjects: Array<UserProject> = [];
 
-    project: Project = new Project();
-
-    id: string;
+    //id: string;
     modalRef: BsModalRef;
     private sub: any;
 
@@ -37,18 +46,15 @@ export class ProjectEditModalComponent implements OnInit {
 
     ngOnInit() {
 
-        this.sub = this.route.params.subscribe(params => {
-            this.id = params['id']; // (+) converts string 'id' to a number
-            this.getProjectInfo(this.id);
-        });
-        
+    }
 
+    afterProjectIdSet() {
+        this.getProjectInfo(this.project.id);
         this.getUsersToSelect();
     }
 
     updateProjectInfo() {
-        debugger;
-        this.projectsService.update(this.project, this.id)
+        this.projectsService.update(this.project, this.project.id)
             .subscribe(
             project => {
                 this.project = project;
@@ -69,12 +75,15 @@ export class ProjectEditModalComponent implements OnInit {
     getUsersToSelect() {
         this.usersService.getUsers(this.currentPage, this.usersCount)
             .subscribe(
-            pageModel => { this.users = pageModel.items },
+            pageModel => {
+                this.userProjects = _.map(pageModel.items, (user) => { return new UserProject(user.id, user, this.project.id)});
+            },
             error => { }
             );
     }
 
     open() {
         this.modalRef = this.modalService.show(this.template);
+        this.afterProjectIdSet();
     }
 }
