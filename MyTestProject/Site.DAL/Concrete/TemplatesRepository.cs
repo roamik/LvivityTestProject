@@ -18,7 +18,7 @@ namespace Site.DAL.Concrete
     }
 
 
-    public async Task<List<Template>> GetPagedAsync(string id, int page, int count)
+    public async Task<List<Template>> GetPagedAsync(Guid id, int page, int count)
     {
       var templateList = await _context.Templates.Where(t => t.UserId == id)
         .Skip(page * count)
@@ -53,12 +53,12 @@ namespace Site.DAL.Concrete
       _context.Templates.Remove(entity);
     }
 
-    public async Task<bool> ExistAsync(string key)
+    public async Task<bool> ExistAsync(Guid key)
     {
       return await _context.Templates.AnyAsync(o => o.Id == key);
     }
 
-    public async Task<Template> FirstAsync(string id)
+    public async Task<Template> FirstAsync(Guid id)
     {
       return await _context.Templates.FirstOrDefaultAsync(o => o.Id == id);
     }
@@ -73,9 +73,14 @@ namespace Site.DAL.Concrete
       return entity;
     }
 
-    public async Task<int> CountAsync(string id)
+    public Task<int> CountAsync(Guid id)
     {
-      return await _context.Templates.Include(u => u.User).Where(u => u.UserId == id).CountAsync();
+      throw new NotImplementedException();
     }
+
+    //public async Task<int> CountAsync(Guid id)
+    //{
+    //  return await _context.Templates.Include(u => u.User).Where(u => u.UserId == id).CountAsync();
+    //}
   }
 }

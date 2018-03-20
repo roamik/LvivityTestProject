@@ -7,7 +7,7 @@ namespace Site.Models.DTO
 {
     public class UserDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -18,6 +18,6 @@ namespace Site.Models.DTO
 
         public virtual List<ProjectDto> Projects { get; set; }
 
-        public virtual List<UserProjectDto> InvolvedProjects { get; set; } = new List<UserProjectDto>(); // projects where user is involved in
+        public virtual List<UserProjectDto> InvolvedProjects { get; set; } // projects where user is involved in
     }
 }

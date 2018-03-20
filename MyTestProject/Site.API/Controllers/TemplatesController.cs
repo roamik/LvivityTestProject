@@ -30,7 +30,7 @@ namespace Site.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetMyTemplates([FromQuery] int page, [FromQuery] int count)
     {
-      var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+      var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
       var templates = await _templateRep.GetPagedAsync(userId, page, count);
       var templatesCount = await _templateRep.CountAsync(userId);
 
@@ -45,7 +45,7 @@ namespace Site.API.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> GetTemplateByIdAsync(string id)
+    public async Task<IActionResult> GetTemplateByIdAsync(Guid id)
     {
       var template = await _templateRep.FirstAsync(id);
       if (template == null)
@@ -59,7 +59,7 @@ namespace Site.API.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateTemplateAsync([FromBody] TemplateDto model)
     {
-      var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
+      var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value); // Get user id from token Sid claim
       //var template = new Template { Content = model.Content, Description = model.Description, Name = model.Name, UserId = userId };
       model.Id = null;
       model.UserId = userId;
@@ -71,7 +71,7 @@ namespace Site.API.Controllers
 
     [HttpDelete]
     [Route("{id}")]
-    public async Task<IActionResult> DeleteProduct(string id)
+    public async Task<IActionResult> DeleteProduct(Guid id)
     {
       if (!await _templateRep.ExistAsync(id))
       {
@@ -87,7 +87,7 @@ namespace Site.API.Controllers
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> Update([FromBody] TemplateDto model, string id)
+    public async Task<IActionResult> Update([FromBody] TemplateDto model, Guid id)
     {
       if (!ModelState.IsValid || model == null)
       {

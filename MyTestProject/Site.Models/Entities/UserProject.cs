@@ -7,19 +7,11 @@ using Site.Models.Enums;
 
 namespace Site.Models.Entities
 {
-  public class UserProject
+  public class UserProject : Entity<Guid>
   {
-    [ForeignKey("User")]
-    [Required]
-    public string UserId { get; set; }
+    public Guid UserId { get; set; }
 
-    public virtual User User { get; set; }
-
-    [ForeignKey("Project")]
-    [Required]
-    public string ProjectId { get; set; }
-
-    public virtual Project Project { get; set; }
+    public Guid ProjectId { get; set; }
 
     public LinkStatus Status { get; set; }
   }

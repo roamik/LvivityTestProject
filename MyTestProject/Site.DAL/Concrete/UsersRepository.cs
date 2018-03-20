@@ -51,12 +51,12 @@ namespace Site.DAL.Concrete
       _context.Users.Remove(entity);
     }
 
-    public async Task<bool> ExistAsync(string key)
+    public async Task<bool> ExistAsync(Guid key)
     {
       return await _context.Templates.AnyAsync(o => o.Id == key);
     }
 
-    public async Task<User> FirstAsync(string id)
+    public async Task<User> FirstAsync(Guid id)
     {
       return await _context.Users.FirstOrDefaultAsync(o => o.Id == id);
     }

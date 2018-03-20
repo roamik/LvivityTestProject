@@ -7,11 +7,11 @@ namespace Site.Models.DTO
 {
   public class ProjectDto
   {
-    public virtual Guid? Id { get; set; }
+    public virtual Guid Id { get; set; }
 
-    public string UserId { get; set; }
+    public virtual Guid OwnerId { get; set; }
 
-    public virtual UserDto User { get; set; }
+    public virtual UserDto Owner { get; set; }
 
     [Required]
     [MinLength(4)]
@@ -28,6 +28,19 @@ namespace Site.Models.DTO
     [MaxLength(200)]
     public string Content { get; set; }
 
-    public virtual List<UserProjectDto> LinkedUsers { get; set; }  = new List<UserProjectDto>();
+    public virtual List<UserProjectDto> LinkedUsers { get; set; }
+  }
+
+  public class ProjectDtoInput
+  {
+    public Guid Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Description { get; set; }
+
+    public string Content { get; set; }
+
+    public List<UserProjectDtoInput> LinkedUsers { get; set; }
   }
 }

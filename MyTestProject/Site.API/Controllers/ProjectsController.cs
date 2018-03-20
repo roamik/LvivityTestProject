@@ -30,7 +30,7 @@ namespace Site.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetMyProjects([FromQuery] int page, [FromQuery] int count)
     {
-      var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value;
+      var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
       var projects = await _projectsRep.GetPagedAsync(userId, page, count);
       var projectsCount = await _projectsRep.CountAsync(userId);
 
@@ -45,7 +45,7 @@ namespace Site.API.Controllers
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> GetProjectByIdAsync(string id)
+    public async Task<IActionResult> GetProjectByIdAsync(Guid id)
     {
       var project = await _projectsRep.FirstAsync(id);
       if (project == null)
@@ -61,8 +61,8 @@ namespace Site.API.Controllers
     {
       var userId = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value; // Get user id from token Sid claim
 
-      model.Id = null;
-      model.UserId = userId;
+      //model.Id = null;
+      model.OwnerId = Guid.Parse(userId);
 
       var project = _mapper.Map<Project>(model);
       project = await _projectsRep.AddAsync(project);
@@ -73,33 +73,37 @@ namespace Site.API.Controllers
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> Update([FromBody] ProjectDto model, string id)
+    public async Task<IActionResult> Update([FromBody] ProjectDtoInput model, string id)
     {
-      try
-      {
-        model.User = null;
+        //if (!ModelState.IsValid || model == null)
+        //{
+        //  return BadRequest(ModelState);
+        //}
 
-        if (!ModelState.IsValid || model == null)
+        //if (!await _projectsRep.ExistAsync(id))
+        //{
+        //  return NotFound($"Item {id} doesn't exist!");
+        //}
+
+        var project = await _projectsRep.FirstOrDefaultAsync(p=>p.Id == model.Id);
+
+        project.Name = model.Name;
+
+        project.Description = model.Description;
+
+        project.Content = model.Content;
+
+        foreach (var user in model.LinkedUsers)
         {
-          return BadRequest(ModelState);
-        }
+          project.LinkedUsers.Add(new UserProject { ProjectId = user.ProjectId, UserId = user.UserId});
+        } 
 
-        if (!await _projectsRep.ExistAsync(id))
-        {
-          return NotFound($"Item {id} doesn't exist!");
-        }
-
-        var project = _mapper.Map<Project>(model);
+       // var project = _mapper.Map<Project>(model);
 
         project = _projectsRep.Update(project);
-        //todo google how to create addOrUpdate method for UserProject
-        await _projectsRep.Save();
+
+        //await _projectsRep.Save();
         return Ok(_mapper.Map<ProjectDto>(project));
-      }
-      catch(Exception e)
-      {
-        return BadRequest(e);
-      }
     }
   }
 }

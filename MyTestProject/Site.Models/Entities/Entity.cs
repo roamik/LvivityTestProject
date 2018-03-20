@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Site.Models.Entities
 {
-  public abstract class Entity
+  public class Entity<T>
   {
-    public abstract string Id { get; set; }
+    [Key]
+    public T Id { get; set; }
   }
 }

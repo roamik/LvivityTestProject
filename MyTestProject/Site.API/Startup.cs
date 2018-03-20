@@ -66,13 +66,13 @@ namespace Site.API
 
       services.AddScoped<IProjectsRepository, ProjectsRepository>();
 
-      services.AddScoped<IdentityDbContext<User>, DatabaseContext>();
+      services.AddScoped<IdentityDbContext<User,IdentityRole<Guid>, Guid>, DatabaseContext>();
 
-      services.AddIdentity<User, IdentityRole>()
+      services.AddIdentity<User, IdentityRole<Guid>>()
                .AddEntityFrameworkStores<DatabaseContext>()
                .AddDefaultTokenProviders()
-               .AddRoleValidator<RoleValidator<IdentityRole>>()
-               .AddRoleManager<RoleManager<IdentityRole>>()
+               .AddRoleValidator<RoleValidator<IdentityRole<Guid>>>()
+               .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
                .AddSignInManager<SignInManager<User>>();
 
       services.Configure<IdentityOptions>(options =>
@@ -168,7 +168,7 @@ namespace Site.API
 
       using (var scope = scopeFactory.CreateScope())
       {
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
         ((UserRoleSeed)roleSeed).Initialize(roleManager).Wait();
       }

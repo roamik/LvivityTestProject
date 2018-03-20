@@ -8,6 +8,6 @@ namespace Site.API.Helpers
 {
   public interface IUserRoleSeed
   {
-    Task Initialize(RoleManager<IdentityRole> roleManager);
+    Task Initialize(RoleManager<IdentityRole<Guid>> roleManager);
   }
 }

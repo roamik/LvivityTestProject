@@ -13,6 +13,12 @@ namespace Site.Models.Profiles
       {
         CreateMap<Project, ProjectDto>().MaxDepth(1);
         CreateMap<ProjectDto, Project>().MaxDepth(1);
-      }
+        CreateMap<ProjectDtoInput, Project>();
+        CreateMap<Project, ProjectDtoInput>();
+
+        CreateMap<UserProjectDtoInput, UserProject>();
+        CreateMap<UserProject, UserProjectDtoInput>();
+      
+    }
   }
 }

@@ -13,7 +13,7 @@ namespace Site.Models.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
@@ -27,7 +27,7 @@ namespace Site.Models.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -50,6 +50,36 @@ namespace Site.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Projects",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    OwnerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Templates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Templates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -57,7 +87,7 @@ namespace Site.Models.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +108,7 @@ namespace Site.Models.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,7 +128,7 @@ namespace Site.Models.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,8 +145,8 @@ namespace Site.Models.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,7 +169,7 @@ namespace Site.Models.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -156,68 +186,21 @@ namespace Site.Models.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Content = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Projects_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Templates",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Content = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Templates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Templates_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserProjects",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    ProjectId = table.Column<string>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    ProjectId = table.Column<Guid>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProjects", x => new { x.UserId, x.ProjectId });
+                    table.PrimaryKey("PK_UserProjects", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserProjects_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserProjects_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -262,16 +245,6 @@ namespace Site.Models.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_UserId",
-                table: "Projects",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Templates_UserId",
-                table: "Templates",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserProjects_ProjectId",
                 table: "UserProjects",
                 column: "ProjectId");
@@ -304,10 +277,10 @@ namespace Site.Models.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Projects");
         }
     }
 }

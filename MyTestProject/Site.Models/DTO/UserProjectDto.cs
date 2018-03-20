@@ -10,14 +10,21 @@ namespace Site.Models.DTO
 {
   public class UserProjectDto
   {
-    public virtual string UserId { get; set; }
+    public virtual Guid UserId { get; set; }
 
     public virtual UserDto User { get; set; }
 
-    public virtual string ProjectId { get; set; }
+    public virtual Guid ProjectId { get; set; }
 
     public virtual ProjectDto Project { get; set; }
 
     public LinkStatus Status { get; set; }
   }
+
+  public class UserProjectDtoInput
+  {
+    public Guid UserId { get; set; }
+
+    public Guid ProjectId { get; set; }
+  } 
 }

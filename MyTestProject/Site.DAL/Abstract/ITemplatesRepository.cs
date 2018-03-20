@@ -7,14 +7,14 @@ namespace Site.DAL.Abstract
 {
   public interface ITemplatesRepository
   {
-    Task<List<Template>> GetPagedAsync(string id, int page, int count);
+    Task<List<Template>> GetPagedAsync(Guid id, int page, int count);
     Task<Template> AddAsync(Template template);
     Task<int> Save();
-    Task<bool> ExistAsync(string key);
+    Task<bool> ExistAsync(Guid key);
     Task<Template> GetByIdAsync(object id);
     void Delete(Template entity);
-    Task<Template> FirstAsync(string id);
+    Task<Template> FirstAsync(Guid id);
     Template Update(Template entity);
-    Task<int> CountAsync(string id);
+    Task<int> CountAsync(Guid id);
   }
 }

@@ -50,9 +50,8 @@ namespace Site.API.Controllers
         var claims = new List<Claim> {
                     new Claim( ClaimsIdentity.DefaultNameClaimType, user.UserName),
                     //new Claim (ClaimsIdentity.DefaultRoleClaimType)
-                    new Claim( JwtRegisteredClaimNames.Sid, user.Id ),
-                    new Claim( JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Sid, user.Id)
+                    new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString() ),
+                    new Claim( JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
         if (roles.Any())
         {
@@ -87,7 +86,7 @@ namespace Site.API.Controllers
                     new Claim(ClaimsIdentity.DefaultNameClaimType,user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Sid, user.Id) // Set userid to token Sid claim
+                    new Claim(JwtRegisteredClaimNames.Sid, user.Id.ToString()) // Set userid to token Sid claim
                 };
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

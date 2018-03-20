@@ -11,7 +11,7 @@ namespace Site.API.Configuration
   public class UserRoleSeed : IUserRoleSeed
   {
     
-    public async Task Initialize(RoleManager<IdentityRole> roleManager)
+    public async Task Initialize(RoleManager<IdentityRole<Guid>> roleManager)
     {
       
       string[] roleNames = { "Admin", "Manager", "Member" };
@@ -23,7 +23,7 @@ namespace Site.API.Configuration
         if (!roleExist)
         {
           //create the roles and seed them to the database: Question 2
-          roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+          roleResult = await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
         }
       }
     }

@@ -12,7 +12,7 @@ using System;
 namespace Site.Models.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20180315161734_Initial")]
+    [Migration("20180320164945_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace Site.Models.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
@@ -46,7 +46,7 @@ namespace Site.Models.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -55,8 +55,7 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired();
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
@@ -65,7 +64,7 @@ namespace Site.Models.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -74,8 +73,7 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -84,7 +82,7 @@ namespace Site.Models.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider");
 
@@ -92,8 +90,7 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -102,11 +99,11 @@ namespace Site.Models.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<string>("RoleId");
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -115,9 +112,9 @@ namespace Site.Models.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -132,7 +129,7 @@ namespace Site.Models.Migrations
 
             modelBuilder.Entity("Site.Models.Entities.Project", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
@@ -141,18 +138,16 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("OwnerId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Site.Models.Entities.Template", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Content");
@@ -161,18 +156,16 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Templates");
                 });
 
             modelBuilder.Entity("Site.Models.Entities.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
@@ -225,28 +218,31 @@ namespace Site.Models.Migrations
 
             modelBuilder.Entity("Site.Models.Entities.UserProject", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ProjectId");
+                    b.Property<Guid>("ProjectId");
 
                     b.Property<int>("Status");
 
-                    b.HasKey("UserId", "ProjectId");
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
                     b.ToTable("UserProjects");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("Site.Models.Entities.User")
                         .WithMany()
@@ -254,7 +250,7 @@ namespace Site.Models.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("Site.Models.Entities.User")
                         .WithMany()
@@ -262,9 +258,9 @@ namespace Site.Models.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -275,38 +271,19 @@ namespace Site.Models.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("Site.Models.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Site.Models.Entities.Project", b =>
-                {
-                    b.HasOne("Site.Models.Entities.User", "User")
-                        .WithMany("Projects")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Site.Models.Entities.Template", b =>
-                {
-                    b.HasOne("Site.Models.Entities.User", "User")
-                        .WithMany("Templates")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Site.Models.Entities.UserProject", b =>
                 {
-                    b.HasOne("Site.Models.Entities.Project", "Project")
+                    b.HasOne("Site.Models.Entities.Project")
                         .WithMany("LinkedUsers")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Site.Models.Entities.User", "User")
-                        .WithMany("InvolvedProjects")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
