@@ -30,12 +30,6 @@ namespace Site.Models.Entities
           /*"Server = ROAMPC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true"*/);
     }
 
-
-
-    //public UserManager<User> UserManager { get; }
-
-    //public SignInManager<User> SignInManager { get; }
-
     public DbSet<Template> Templates { get; set; }
 
     public DbSet<Project> Projects { get; set; }
@@ -57,7 +51,7 @@ namespace Site.Models.Entities
       //  .WithOne(uc => uc.User)
       //  .HasForeignKey(uc => uc.UserId);
 
-      //modelBuilder.Entity<UserProject>().HasKey(e => new { e.UserId, e.ProjectId });
+      modelBuilder.Entity<UserProject>().HasKey(e => new { e.UserId, e.ProjectId });
 
       //modelBuilder.Entity<User>()    // User 1 => N InvolvedProjects
       //  .HasMany(u => u.InvolvedProjects)

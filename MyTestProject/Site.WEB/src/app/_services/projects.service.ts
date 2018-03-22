@@ -8,6 +8,8 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { PageModel } from '../_models/PageModel';
+import { User } from '../_models/user';
+import { UserProject } from '../_models/UserProject';
 
 @Injectable()
 export class ProjectsService {
@@ -31,8 +33,12 @@ export class ProjectsService {
         return this.http.post<Project>(this.BASEURL + 'api/projects', model);
     }
 
-    update(model, id: string): Observable<Project> {
-        return this.http.put<Project>(this.BASEURL + 'api/projects/' + id, model);
+    update(model): Observable<Project> {
+        return this.http.put<Project>(this.BASEURL + 'api/projects/', model);
+    }
+
+    detachUser(model): Observable<UserProject> {
+        return this.http.post<UserProject>(this.BASEURL + 'api/projects/detach' , model);
     }
 
 }

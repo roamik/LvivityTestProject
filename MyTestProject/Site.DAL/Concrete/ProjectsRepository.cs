@@ -61,11 +61,6 @@ namespace Site.DAL.Concrete
       return await _context.Projects.AnyAsync(o => o.Id == key);
     }
 
-    public async Task<Project> FirstAsync(Guid id)
-    {
-      return await _context.Projects.FirstOrDefaultAsync(o => o.Id == id);
-    }
-
     public virtual Project Update(Project project)
     {
       var result = _context.Update(project).Entity;

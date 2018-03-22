@@ -11,6 +11,7 @@ namespace Site.DAL.Abstract
     Task<List<User>> GetUsersLinkedAsync(string id, int page, int count);
     Task<User> LinkToProjectAsync(Template template);
     Task<int> Save();
+    Task<User> FirstAsync(Guid id);
     Task<bool> ExistAsync(Guid key);
     void Delete(User entity);
     Task<int> CountAsync();

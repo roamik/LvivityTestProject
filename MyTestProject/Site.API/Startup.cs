@@ -66,6 +66,8 @@ namespace Site.API
 
       services.AddScoped<IProjectsRepository, ProjectsRepository>();
 
+      services.AddScoped<IUserProjectRepository, UserProjectRepository>();
+
       services.AddScoped<IdentityDbContext<User,IdentityRole<Guid>, Guid>, DatabaseContext>();
 
       services.AddIdentity<User, IdentityRole<Guid>>()

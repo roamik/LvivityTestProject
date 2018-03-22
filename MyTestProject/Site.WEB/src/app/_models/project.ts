@@ -11,6 +11,8 @@ export class Project {
     userId: string;
     user: User;
 
+
+
     constructor(id?: string, content?: string, description?: string, name?: string, linkedUsers?: UserProject[], userId?: string, user?: User) {
         this.id = id;
         this.content = content;

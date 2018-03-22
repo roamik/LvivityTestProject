@@ -2,7 +2,7 @@
 import { Project } from './project';
 
 export class UserProject {
-
+    
     userId: string;
 
     user: User;

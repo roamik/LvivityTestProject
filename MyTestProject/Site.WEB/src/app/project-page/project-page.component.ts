@@ -3,6 +3,7 @@ import { Project } from '../_models/project';
 import { ProjectsService } from '../_services/projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UserProject } from '../_models/UserProject';
 
 @Component({
     selector: 'project-page',
@@ -14,6 +15,7 @@ export class ProjectPageComponent implements OnInit {
     id: string;
     private sub: any;
     project: Project = new Project();
+    public involvedUsers: Array<UserProject> = [];
 
 
 
@@ -37,8 +39,21 @@ export class ProjectPageComponent implements OnInit {
     getProjectInfo(id: string) {
         this.projectsService.getById(id)
             .subscribe(
-            project => { this.project = project },
+            project => {
+                this.project = project;
+                this.involvedUsers = project.linkedUsers;
+            },
             error => { }
-            )
+            );
+    }
+
+    detachUser(model) {
+        this.projectsService.detachUser(model)
+            .subscribe(
+                success => {
+                    this.getProjectInfo(this.id);
+                },
+                error => {
+                });
     }
 }

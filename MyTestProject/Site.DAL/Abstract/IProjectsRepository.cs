@@ -14,7 +14,6 @@ namespace Site.DAL.Abstract
     Task<bool> ExistAsync(Guid key);
     Task<Project> GetByIdAsync(object id);
     void Delete(Project entity);
-    Task<Project> FirstAsync(Guid id);
     Project Update(Project entity);
     Task<int> CountAsync(Guid id);
     Task<Project> FirstOrDefaultAsync(Expression<Func<Project, bool>> predicate);

@@ -7,7 +7,7 @@ using Site.Models.Enums;
 
 namespace Site.Models.Entities
 {
-  public class UserProject : Entity<Guid>
+  public class UserProject
   {
     public Guid UserId { get; set; }
 

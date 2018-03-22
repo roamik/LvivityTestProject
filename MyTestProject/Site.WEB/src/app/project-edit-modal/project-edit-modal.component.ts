@@ -21,6 +21,8 @@ export class ProjectEditModalComponent implements OnInit {
     @Output()
     change: EventEmitter<Project> = new EventEmitter<Project>();
 
+    
+
     project: Project = new Project();
 
     @Input()
@@ -54,7 +56,7 @@ export class ProjectEditModalComponent implements OnInit {
     }
 
     updateProjectInfo() {
-        this.projectsService.update(this.project, this.project.id)
+        this.projectsService.update(this.project)
             .subscribe(
             project => {
                 this.project = project;

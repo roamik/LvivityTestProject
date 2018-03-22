@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Remotion.Linq.Clauses;
 using Site.DAL.Abstract;
 using Site.Models.DTO;
 using Site.Models.Entities;
@@ -19,11 +20,15 @@ namespace Site.API.Controllers
   public class ProjectsController : Controller
   {
     private readonly IProjectsRepository _projectsRep;
+    private readonly IUserProjectRepository _userProjectRep;
+    private readonly IUsersRepository _usersRep;
     private readonly IMapper _mapper;
 
-    public ProjectsController(IProjectsRepository projectsRep, IMapper mapper)
+    public ProjectsController(IProjectsRepository projectsRep, IUsersRepository usersRep,IUserProjectRepository userProjectRep, IMapper mapper)
     {
       _projectsRep = projectsRep;
+      _userProjectRep = userProjectRep;
+      _usersRep = usersRep;
       _mapper = mapper;
     }
 
@@ -47,13 +52,23 @@ namespace Site.API.Controllers
     [Route("{id}")]
     public async Task<IActionResult> GetProjectByIdAsync(Guid id)
     {
-      var project = await _projectsRep.FirstAsync(id);
+      var project = await _projectsRep.FirstOrDefaultAsync(p => p.Id == id);
+
       if (project == null)
       {
         return BadRequest("Project not found!");
       }
 
-      return Ok(_mapper.Map<ProjectDto>(project));
+      var mapped = _mapper.Map<ProjectDto>(project);
+
+      foreach (var userProject in mapped.LinkedUsers)
+      {
+        var user = await _usersRep.FirstAsync(userProject.UserId);
+        var mappedUser = _mapper.Map<UserDto>(user);
+        userProject.User = mappedUser;
+      }
+
+      return Ok(mapped);
     }
 
     [HttpPost]
@@ -72,38 +87,57 @@ namespace Site.API.Controllers
     }
 
     [HttpPut]
-    [Route("{id}")]
-    public async Task<IActionResult> Update([FromBody] ProjectDtoInput model, string id)
+    public async Task<IActionResult> Update([FromBody] ProjectDtoInput model)
     {
-        //if (!ModelState.IsValid || model == null)
-        //{
-        //  return BadRequest(ModelState);
-        //}
 
-        //if (!await _projectsRep.ExistAsync(id))
-        //{
-        //  return NotFound($"Item {id} doesn't exist!");
-        //}
+      if (!ModelState.IsValid || model == null)
+      {
+        return BadRequest(ModelState);
+      }
 
-        var project = await _projectsRep.FirstOrDefaultAsync(p=>p.Id == model.Id);
+      if (!await _projectsRep.ExistAsync(model.Id))
+      {
+        return NotFound($"Item {model.Name} doesn't exist!");
+      }
 
-        project.Name = model.Name;
+      var project = await _projectsRep.FirstOrDefaultAsync(p => p.Id == model.Id);
 
-        project.Description = model.Description;
+      project.Name = model.Name;
 
-        project.Content = model.Content;
+      project.Description = model.Description;
 
-        foreach (var user in model.LinkedUsers)
+      project.Content = model.Content;
+
+      //var project = _mapper.Map<Project>(model);
+
+      foreach (var modelUser in model.LinkedUsers)
+      {
+        var userList = project.LinkedUsers.Where(c => c.UserId == modelUser.UserId).ToList(); // find users in project.LinkedUsers whos id == models user id
+
+       if (userList.Count == 0 || project.LinkedUsers.Count == 0) //if we found users that are already linked to the project we dont want to duplicate them
         {
-          project.LinkedUsers.Add(new UserProject { ProjectId = user.ProjectId, UserId = user.UserId});
-        } 
+          project.LinkedUsers.Add(new UserProject { ProjectId = modelUser.ProjectId, UserId = modelUser.UserId });
+        }
 
-       // var project = _mapper.Map<Project>(model);
+      }
 
-        project = _projectsRep.Update(project);
+      project = _projectsRep.Update(project);
 
-        //await _projectsRep.Save();
-        return Ok(_mapper.Map<ProjectDto>(project));
+      return Ok(_mapper.Map<ProjectDto>(project));
+    }
+
+    [HttpPost]
+    [Route("detach")]
+    public async Task<IActionResult> DetachUser([FromBody] UserProjectDto model)
+    {
+      var userid = model.UserId;
+
+      var projId = model.ProjectId;
+
+      var userProject = await _userProjectRep.GetByIdAsync(userid, projId);
+
+      _userProjectRep.DetachUser(userProject);
+      return NoContent();
     }
   }
 }
