@@ -1,24 +1,25 @@
 <div class="projectInfoBlock">
 
     <h1>{{project.name}}</h1>
-    
 
     <img class="projectPicture" src="https://tootle.co.in:3000/images/other/default-avatar.jpg" alt="Picture">
+    
 
     <div class="projectDevelopers">
-        <h4>Co-Workers:</h4>
+        <h4><b>Co-Workers:</b></h4>
         <ul>
             <li *ngFor="let model of involvedUsers; let i = index">
                 {{ i + 1 }} - <b>Name:</b> {{ model.user.name }} | <a><span (click)="detachUser(model)">Remove</span></a>
             </li>
         </ul>
+        <span *ngIf="involvedUsers == 0">You're working alone, add someone!</span>
     </div>
 
     <div class="projectDescription">
         <p>{{project.description}}</p>
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="projectModal.open()">Modal</button>
+    <button type="button" class="btn btn-primary center-block" (click)="projectModal.open()">Edit</button>
 
 </div>
 

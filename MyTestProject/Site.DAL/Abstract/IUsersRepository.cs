@@ -7,7 +7,7 @@ namespace Site.DAL.Abstract
 {
   public interface IUsersRepository
   {
-    Task<List<User>> GetPagedAsync(int page, int count);
+    Task<List<User>> GetPagedAsync(int page, int count, Guid myid);
     Task<List<User>> GetUsersLinkedAsync(string id, int page, int count);
     Task<User> LinkToProjectAsync(Template template);
     Task<int> Save();

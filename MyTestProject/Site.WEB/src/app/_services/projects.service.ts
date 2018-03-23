@@ -8,7 +8,6 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { PageModel } from '../_models/PageModel';
-import { User } from '../_models/user';
 import { UserProject } from '../_models/UserProject';
 
 @Injectable()

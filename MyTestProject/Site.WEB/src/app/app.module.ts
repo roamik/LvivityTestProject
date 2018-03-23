@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -73,6 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ProjectPageComponent,
         ProjectCreationPageComponent,
         ProjectEditModalComponent
+
     ],
     imports: [
         BrowserModule,
@@ -84,7 +85,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AngularFontAwesomeModule,
         NgSelectModule,
         ModalModule.forRoot(),
-        SidebarModule.forRoot()
+        SidebarModule.forRoot(),
+        ReactiveFormsModule
     ],
     providers: [{
             provide: HTTP_INTERCEPTORS,

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Output, EventEmitter, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, TemplateRef, Output, EventEmitter, ViewChild, Input, ElementRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Project } from '../_models/project';
 import { ProjectsService } from '../_services/projects.service';
@@ -7,6 +7,7 @@ import { User } from '../_models/user';
 import { UsersService } from '../_services/users.service';
 import * as _ from "lodash";
 import { UserProject } from '../_models/UserProject';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'project-edit-modal',
@@ -18,10 +19,15 @@ export class ProjectEditModalComponent implements OnInit {
     @ViewChild('template')
     template: TemplateRef<any>;
 
+    @ViewChild('fileInput')
+    fileInput: ElementRef;
+
     @Output()
     change: EventEmitter<Project> = new EventEmitter<Project>();
 
-    
+    form: FormGroup;
+
+    filterargs = { id: 'hello' };
 
     project: Project = new Project();
 
@@ -44,10 +50,17 @@ export class ProjectEditModalComponent implements OnInit {
     constructor(private modalService: BsModalService,
         private projectsService: ProjectsService,
         private usersService: UsersService,
-        private route: ActivatedRoute) { }
+        private fb: FormBuilder,
+        private route: ActivatedRoute) { this.createForm(); }
 
     ngOnInit() {
 
+    }
+
+    createForm() {
+        this.form = this.fb.group({
+            imageF: null
+        });
     }
 
     afterProjectIdSet() {
@@ -78,10 +91,21 @@ export class ProjectEditModalComponent implements OnInit {
         this.usersService.getUsers(this.currentPage, this.usersCount)
             .subscribe(
             pageModel => {
-                this.userProjects = _.map(pageModel.items, (user) => { return new UserProject(user.id, user, this.project.id)});
+                this.userProjects = _.map(pageModel.items, (user) => { return new UserProject(user.id, user, this.project.id) });
             },
             error => { }
             );
+    }
+
+    onFileChange(event) {
+        let reader = new FileReader();
+        if (event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                this.project.image = reader.result.split(',')[1];
+            };
+        }
     }
 
     open() {

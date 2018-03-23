@@ -30,7 +30,8 @@ namespace Site.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetUsers([FromQuery] int page, [FromQuery] int count)
     {
-      var users = await _usersRep.GetPagedAsync(page, count);
+      var myId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
+      var users = await _usersRep.GetPagedAsync(page, count, myId);
       var usersCount = await _usersRep.CountAsync();
 
       var pageReturnModel = new PageReturnModel<UserDto>

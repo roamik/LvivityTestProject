@@ -23,9 +23,9 @@ namespace Site.DAL.Concrete
     }
 
 
-    public async Task<List<User>> GetPagedAsync(int page, int count)
+    public async Task<List<User>> GetPagedAsync(int page, int count, Guid myId)
     {
-      var usersList = await _context.Users
+      var usersList = await _context.Users.Where(u=>u.Id != myId)
         .Skip(page * count)
         .Take(count)
         .ToListAsync();

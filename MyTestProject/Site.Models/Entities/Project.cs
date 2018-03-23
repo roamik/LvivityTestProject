@@ -15,6 +15,8 @@ namespace Site.Models.Entities
 
     public string Content { get; set; }
 
+    public byte[] Image { get; set; }
+
 
     //navigation property
 

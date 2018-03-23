@@ -108,6 +108,8 @@ namespace Site.API.Controllers
 
       project.Content = model.Content;
 
+      project.Image = model.Image;
+
       //var project = _mapper.Map<Project>(model);
 
       foreach (var modelUser in model.LinkedUsers)
