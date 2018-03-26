@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Remotion.Linq.Clauses;
+using Site.API.Helpers;
 using Site.DAL.Abstract;
 using Site.Models.DTO;
 using Site.Models.Entities;
@@ -22,14 +25,17 @@ namespace Site.API.Controllers
     private readonly IProjectsRepository _projectsRep;
     private readonly IUserProjectRepository _userProjectRep;
     private readonly IUsersRepository _usersRep;
+    private readonly IHostingEnvironment _env;
+
     private readonly IMapper _mapper;
 
-    public ProjectsController(IProjectsRepository projectsRep, IUsersRepository usersRep,IUserProjectRepository userProjectRep, IMapper mapper)
+    public ProjectsController(IProjectsRepository projectsRep, IUsersRepository usersRep, IUserProjectRepository userProjectRep, IMapper mapper, IHostingEnvironment env)
     {
       _projectsRep = projectsRep;
       _userProjectRep = userProjectRep;
       _usersRep = usersRep;
       _mapper = mapper;
+      _env = env;
     }
 
     [HttpGet]
@@ -52,7 +58,13 @@ namespace Site.API.Controllers
     [Route("{id}")]
     public async Task<IActionResult> GetProjectByIdAsync(Guid id)
     {
+      var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
       var project = await _projectsRep.FirstOrDefaultAsync(p => p.Id == id);
+
+      if (project.OwnerId != userId)
+      {
+        return BadRequest("Wrong owner!");
+      }
 
       if (project == null)
       {
@@ -89,6 +101,7 @@ namespace Site.API.Controllers
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] ProjectDtoInput model)
     {
+      ImageSaver ims = new ImageSaver();
 
       if (!ModelState.IsValid || model == null)
       {
@@ -100,6 +113,8 @@ namespace Site.API.Controllers
         return NotFound($"Item {model.Name} doesn't exist!");
       }
 
+      //var filePath = ims.SaveImage(model.Image, _env).ToString();
+
       var project = await _projectsRep.FirstOrDefaultAsync(p => p.Id == model.Id);
 
       project.Name = model.Name;
@@ -108,7 +123,7 @@ namespace Site.API.Controllers
 
       project.Content = model.Content;
 
-      project.Image = model.Image;
+      //project.ImagePath = filePath;
 
       //var project = _mapper.Map<Project>(model);
 
@@ -116,7 +131,7 @@ namespace Site.API.Controllers
       {
         var userList = project.LinkedUsers.Where(c => c.UserId == modelUser.UserId).ToList(); // find users in project.LinkedUsers whos id == models user id
 
-       if (userList.Count == 0 || project.LinkedUsers.Count == 0) //if we found users that are already linked to the project we dont want to duplicate them
+        if (userList.Count == 0 || project.LinkedUsers.Count == 0) //if we found users that are already linked to the project we dont want to duplicate them
         {
           project.LinkedUsers.Add(new UserProject { ProjectId = modelUser.ProjectId, UserId = modelUser.UserId });
         }

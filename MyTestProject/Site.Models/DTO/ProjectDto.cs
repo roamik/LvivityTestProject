@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Site.Models.DTO
 {
@@ -28,7 +29,7 @@ namespace Site.Models.DTO
     [MaxLength(200)]
     public string Content { get; set; }
 
-    public byte[] Image { get; set; }
+    public IFormFile Image { get; set; }
 
     public virtual List<UserProjectDto> LinkedUsers { get; set; }
   }
@@ -43,7 +44,7 @@ namespace Site.Models.DTO
 
     public string Content { get; set; }
 
-    public byte[] Image { get; set; }
+    public IFormFile Image { get; set; }
 
     public List<UserProjectDtoInput> LinkedUsers { get; set; }
   }

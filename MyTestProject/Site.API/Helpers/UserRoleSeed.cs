@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Site.API.Configuration
+namespace Site.API.Helpers
 {
   public class UserRoleSeed : IUserRoleSeed
   {
@@ -22,7 +22,7 @@ namespace Site.API.Configuration
         var roleExist = await roleManager.RoleExistsAsync(roleName);
         if (!roleExist)
         {
-          //create the roles and seed them to the database: Question 2
+          //create the roles and seed them to the database
           roleResult = await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
         }
       }

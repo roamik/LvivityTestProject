@@ -12,7 +12,7 @@ using System;
 namespace Site.Models.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20180323131433_ProjectImageField")]
+    [Migration("20180326115935_ProjectImageField")]
     partial class ProjectImageField
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,7 +136,7 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("ImagePath");
 
                     b.Property<string>("Name");
 

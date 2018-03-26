@@ -9,7 +9,7 @@
         <form #f="ngForm" (ngSubmit)="f.vaild && updateProjectInfo()" novalidate>
             <div class="loginDataBlock">
                 <h1>Edit</h1>
-
+                <pre>{{project | json}}</pre>
                 <div class="row">
                     <div class="col-xs-6">
                         <p class="boldLables text-right">Name:</p>
@@ -72,7 +72,7 @@
                     <div class="col-xs-6">
                         <div class="form-group">
                             <label for="file">Choose File</label>
-                            <input type="file" id="imageF" (change)="onFileChange($event)" #fileInput>
+                            <input type="file" id="file" (change)="onFileChange($event)" #fileInput>
                         </div>
                     </div>
                 </div>

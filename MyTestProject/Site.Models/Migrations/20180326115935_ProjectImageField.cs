@@ -8,8 +8,8 @@ namespace Site.Models.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<byte[]>(
-                name: "Image",
+            migrationBuilder.AddColumn<string>(
+                name: "ImagePath",
                 table: "Projects",
                 nullable: true);
         }
@@ -17,7 +17,7 @@ namespace Site.Models.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Image",
+                name: "ImagePath",
                 table: "Projects");
         }
     }

@@ -7,7 +7,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
-using Site.API.Configuration;
 using System;
 using Site.API.Helpers;
 using System.Text;
@@ -19,6 +18,7 @@ using Site.DAL.Concrete;
 using Site.Models.Entities;
 using Site.Models.Options;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace Site.API
 {

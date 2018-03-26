@@ -135,7 +135,7 @@ namespace Site.Models.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("ImagePath");
 
                     b.Property<string>("Name");
 

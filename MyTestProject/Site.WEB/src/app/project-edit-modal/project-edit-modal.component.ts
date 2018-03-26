@@ -19,8 +19,7 @@ export class ProjectEditModalComponent implements OnInit {
     @ViewChild('template')
     template: TemplateRef<any>;
 
-    @ViewChild('fileInput')
-    fileInput: ElementRef;
+    @ViewChild('fileInput') fileInput: ElementRef;
 
     @Output()
     change: EventEmitter<Project> = new EventEmitter<Project>();
@@ -28,6 +27,8 @@ export class ProjectEditModalComponent implements OnInit {
     form: FormGroup;
 
     filterargs = { id: 'hello' };
+
+    myImage:any;
 
     project: Project = new Project();
 
@@ -98,15 +99,20 @@ export class ProjectEditModalComponent implements OnInit {
     }
 
     onFileChange(event) {
-        let reader = new FileReader();
-        if (event.target.files && event.target.files.length > 0) {
-            let file = event.target.files[0];
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                this.project.image = reader.result.split(',')[1];
-            };
-        }
+        //let reader = new FileReader();
+        //if (event.target.files && event.target.files.length > 0) {
+        //    let file = event.target.files[0];
+        //    reader.readAsDataURL(file);
+        //    reader.onload = () => {
+        //        this.project.image = reader.result.split(',')[1];
+        //    };
+        //}
+        let formData: FormData = new FormData();
+        this.myImage = formData.append("file", event.target.files[0]);
+        this.project.image = this.myImage;
     }
+
+
 
     open() {
         this.modalRef = this.modalService.show(this.template);
