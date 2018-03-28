@@ -11,19 +11,23 @@ namespace Site.API.Helpers
   public class ImageSaver
   {
 
-    public string SaveImage(byte[] image, IHostingEnvironment env)
+    public string SaveImage(IFormFile image, IHostingEnvironment env)
     {
       var modelImage = image;
 
-      var imageName = Guid.NewGuid();
+      var ms = new MemoryStream();
 
-      var webRoot = env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "assets\\");
+      modelImage.CopyTo(ms);
+      var fileBytes = ms.ToArray();
 
-      var filePath = webRoot + Path.GetFileName(imageName.ToString());
+      var webRoot = env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\");
 
-      File.WriteAllBytes(filePath, modelImage);
+      var filePath = webRoot + Path.GetFileName(modelImage.FileName);
+      var returnFilePath = "http://localhost:55172/images/" + modelImage.FileName;
 
-      return filePath;
+      File.WriteAllBytes(filePath, fileBytes); //creating file from bytes
+
+      return returnFilePath;
     }
   }
 }

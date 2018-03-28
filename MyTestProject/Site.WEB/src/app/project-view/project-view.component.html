@@ -10,7 +10,13 @@
             <b>Description: </b>{{ project.description }}
         </p>
 
-            <img class="projectPicture" src="data:image/JPEG;base64,{{project.image}}" alt="Picture">
+        <p>
+            <i class="fas fa-user"></i>
+            <b>Collaborators: </b>{{project.linkedUsers.length}}
+        </p>
+
+        <img *ngIf="project.imagePath" class="projectPicture" src="{{project.imagePath}}" alt="Picture">
+        <img *ngIf="!project.imagePath" class="projectPicture" src="http://localhost:55172/images/default/noimage.png" alt="Picture">
 
     </div>
 </a>

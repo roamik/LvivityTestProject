@@ -8,6 +8,7 @@ import { UsersService } from '../_services/users.service';
 import * as _ from "lodash";
 import { UserProject } from '../_models/UserProject';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UploadService } from '../_services/upload.service';
 
 @Component({
     selector: 'project-edit-modal',
@@ -19,16 +20,16 @@ export class ProjectEditModalComponent implements OnInit {
     @ViewChild('template')
     template: TemplateRef<any>;
 
-    @ViewChild('fileInput') fileInput: ElementRef;
-
     @Output()
     change: EventEmitter<Project> = new EventEmitter<Project>();
 
     form: FormGroup;
 
-    filterargs = { id: 'hello' };
+    fileToUpload: any;
 
-    myImage:any;
+    fileInput: any;
+
+    filterargs = { id: 'hello' };
 
     project: Project = new Project();
 
@@ -36,7 +37,6 @@ export class ProjectEditModalComponent implements OnInit {
     set projectId(value: string) {
         this.project = new Project();
         this.project.id = value;
-
     }
 
     currentPage: number = 0;
@@ -52,6 +52,7 @@ export class ProjectEditModalComponent implements OnInit {
         private projectsService: ProjectsService,
         private usersService: UsersService,
         private fb: FormBuilder,
+        private uploadService: UploadService,
         private route: ActivatedRoute) { this.createForm(); }
 
     ngOnInit() {
@@ -74,10 +75,21 @@ export class ProjectEditModalComponent implements OnInit {
             .subscribe(
             project => {
                 this.project = project;
+  
                 this.modalRef.hide();
                 this.change.emit(this.project);
             },
             error => {
+            });
+        this.uploadFile(this.project.id);
+ 
+    }
+
+    uploadFile(id) {
+        this.uploadService
+            .upload(id, this.fileToUpload)
+            .subscribe(res => {
+                console.log(res);
             });
     }
 
@@ -99,18 +111,20 @@ export class ProjectEditModalComponent implements OnInit {
     }
 
     onFileChange(event) {
-        //let reader = new FileReader();
-        //if (event.target.files && event.target.files.length > 0) {
-        //    let file = event.target.files[0];
-        //    reader.readAsDataURL(file);
-        //    reader.onload = () => {
-        //        this.project.image = reader.result.split(',')[1];
-        //    };
-        //}
-        let formData: FormData = new FormData();
-        this.myImage = formData.append("file", event.target.files[0]);
-        this.project.image = this.myImage;
+        let file = event.target.files[0];
+        this.fileToUpload = file;
     }
+
+    //onFileChange(event) {
+    //    let reader = new FileReader();
+    //    if (event.target.files && event.target.files.length > 0) { // code to convert to byte[] and send bytes to api
+    //        let file = event.target.files[0];
+    //        reader.readAsDataURL(file);
+    //        reader.onload = () => {
+    //            this.project.image = reader.result.split(',')[1];
+    //        };
+    //    }
+    //}
 
 
 

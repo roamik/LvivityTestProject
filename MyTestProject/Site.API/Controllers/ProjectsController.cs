@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Remotion.Linq.Clauses;
 using Site.API.Helpers;
@@ -25,17 +26,16 @@ namespace Site.API.Controllers
     private readonly IProjectsRepository _projectsRep;
     private readonly IUserProjectRepository _userProjectRep;
     private readonly IUsersRepository _usersRep;
-    private readonly IHostingEnvironment _env;
 
     private readonly IMapper _mapper;
 
-    public ProjectsController(IProjectsRepository projectsRep, IUsersRepository usersRep, IUserProjectRepository userProjectRep, IMapper mapper, IHostingEnvironment env)
+    public ProjectsController(IProjectsRepository projectsRep, IUsersRepository usersRep, IUserProjectRepository userProjectRep, IMapper mapper)
     {
       _projectsRep = projectsRep;
       _userProjectRep = userProjectRep;
       _usersRep = usersRep;
+
       _mapper = mapper;
-      _env = env;
     }
 
     [HttpGet]
@@ -101,8 +101,7 @@ namespace Site.API.Controllers
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] ProjectDtoInput model)
     {
-      ImageSaver ims = new ImageSaver();
-
+      
       if (!ModelState.IsValid || model == null)
       {
         return BadRequest(ModelState);
@@ -113,8 +112,6 @@ namespace Site.API.Controllers
         return NotFound($"Item {model.Name} doesn't exist!");
       }
 
-      //var filePath = ims.SaveImage(model.Image, _env).ToString();
-
       var project = await _projectsRep.FirstOrDefaultAsync(p => p.Id == model.Id);
 
       project.Name = model.Name;
@@ -122,8 +119,6 @@ namespace Site.API.Controllers
       project.Description = model.Description;
 
       project.Content = model.Content;
-
-      //project.ImagePath = filePath;
 
       //var project = _mapper.Map<Project>(model);
 

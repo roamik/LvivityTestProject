@@ -17,6 +17,7 @@
     <None Remove="src\app\_services\authentication.service.ts" />
     <None Remove="src\app\_services\projects.service.ts" />
     <None Remove="src\app\_services\templates.service.ts" />
+    <None Remove="src\app\_services\upload.service.ts" />
     <None Remove="src\app\_services\users.service.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +34,7 @@
     <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\_services\projects.service.ts" />
     <TypeScriptCompile Include="src\app\_services\templates.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\upload.service.ts" />
     <TypeScriptCompile Include="src\app\_services\users.service.ts" />
   </ItemGroup>
   <ItemGroup>

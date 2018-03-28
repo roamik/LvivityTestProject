@@ -32,7 +32,7 @@ import { UsersService } from './_services/users.service';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 
 import { AuthGuard } from './_guards/auth.guard';
-;
+import { UploadService } from './_services/upload.service';
 
 
 
@@ -98,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ProjectsService,
         BsModalService,
         UsersService,
+        UploadService,
         AuthGuard
     ],
     bootstrap: [AppComponent]

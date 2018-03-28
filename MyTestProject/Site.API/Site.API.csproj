@@ -30,8 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="assets\" />
+    <Folder Include="wwwroot\images\" />
     <Folder Include="Configuration\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\58832300x300.jpg" />
   </ItemGroup>
 
   <ItemGroup>
