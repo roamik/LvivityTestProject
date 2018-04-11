@@ -1,19 +1,19 @@
-<form #f="ngForm" (ngSubmit)="f.vaild && addTemplate()" novalidate>
+<form #f="ngForm" (ngSubmit)="f.vaild && checkContract()" novalidate>
     <div class="bigDataBlock">
-        <h1>New Template</h1>
+        <h1>Check contract</h1>
         <div class="row">
             <div class="col-xs-6">
-                <p class="boldLables text-right">Name:</p>
+                <p class="boldLables text-right">Sender address(account):</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="name" minlength="4" maxlength="8" placeholder="Give a name" [(ngModel)]="template.name" #name="ngModel" required />
+                <input type="text" name="sender" minlength="4" maxlength="50" placeholder="Account" [(ngModel)]="contractRes.sender" #sender="ngModel" required />
 
-                <div class="md-errors-spacer" *ngIf="name.invalid && (name.touched || f.submited)">
-                    <small class="md-errors-spacer" *ngIf="name.errors.required">
-                        Name is required.
+                <div class="md-errors-spacer" *ngIf="sender.invalid && (sender.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="sender.errors.required">
+                        Sender address is required.
                     </small>
-                    <div class="md-errors-spacer" *ngIf="name.errors.minlength">
-                        Name is min. 4 char. long!.
+                    <div class="md-errors-spacer" *ngIf="sender.errors.minlength">
+                        Sender address is min. 4 char. long!.
                     </div>
                 </div>
             </div>
@@ -21,46 +21,63 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <p class="boldLables text-right">Description:</p>
+                <p class="boldLables text-right">Receiver address(account):</p>
             </div>
             <div class="col-xs-6">
-                <input type="text" name="description" minlength="4" maxlength="15" placeholder="Description" [(ngModel)]="template.description" #description="ngModel" required />
+                <input type="text" name="receiver" minlength="4" maxlength="50" placeholder="Receiver" [(ngModel)]="contractRes.receiver" #receiver="ngModel" required />
 
-                <div class="md-errors-spacer" *ngIf="description.invalid && (description.touched || f.submited)">
-                    <small class="md-errors-spacer" *ngIf="description.errors.required">
+                <div class="md-errors-spacer" *ngIf="receiver.invalid && (receiver.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="receiver.errors.required">
+                        Receiver address is required.
+                    </small>
+                    <div class="md-errors-spacer" *ngIf="receiver.errors.minlength">
+                        Receiver address is min. 4 char. long!.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Amount of ether:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="amount" minlength="1" maxlength="50" placeholder="Receiver" [(ngModel)]="contractRes.amount" #amount="ngModel" required />
+
+                <div class="md-errors-spacer" *ngIf="amount.invalid && (amount.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="amount.errors.required">
+                        amount is required.
+                    </small>
+                    <div class="md-errors-spacer" *ngIf="amount === 0">
+                        amount not 0!!!.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="boldLables text-right">Your password:</p>
+            </div>
+            <div class="col-xs-6">
+                <input type="password" name="password" minlength="4" maxlength="15" placeholder="Password" [(ngModel)]="contractRes.password" #password="ngModel" required />
+
+                <div class="md-errors-spacer" *ngIf="password.invalid && (password.touched || f.submited)">
+                    <small class="md-errors-spacer" *ngIf="password.errors.required">
                         Description is required.
                     </small>
-                    <div class="md-errors-spacer" *ngIf="description.errors.minlength">
+                    <div class="md-errors-spacer" *ngIf="password.errors.minlength">
                         Description is min. 4 char. long!.
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-6">
-                <p class="boldLables text-right">Content:</p>
-            </div>
-            <div class="col-xs-6">
-
-                <textarea name="content" minlength="4" maxlength="80" placeholder="Html here" [(ngModel)]="template.content" #content="ngModel" required></textarea>
-
-                <div class="md-errors-spacer" *ngIf="content.invalid && (content.touched || f.submited)">
-                    <small class="md-errors-spacer" *ngIf="content.errors.required">
-                        Content is required.
-                    </small>
-                    <div class="md-errors-spacer" *ngIf="content.errors.minlength">
-                        Content is min. 4 char. long!.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" [disabled]="!f.valid" class="btn btn-primary center-block" (click)="addTemplate()">Create</button>
+        <button type="button" [disabled]="!f.valid" class="btn btn-primary center-block" (click)="checkContract()">Init</button>
     </div>
 </form>
 <div class="bigDataBlock">
-    <div class="block">
+    <!--<div class="block">
         <table *ngIf="templates.length>0" align="center" border="1" cellpadding="0" cellspacing="0">
             <tr id="headers">
                 <th>Name</th>
@@ -81,7 +98,7 @@
         <span *ngIf="templates.length === 0">
             You don't have any templates. Add one.
         </span>
-    </div>
+    </div>-->
 </div>
 
 <mat-paginator [length]="length"

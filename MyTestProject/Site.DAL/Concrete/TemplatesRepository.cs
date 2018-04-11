@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Nethereum.Geth;
+using Nethereum.Web3;
 using Site.DAL.Abstract;
 using Site.Models.Entities;
 
@@ -11,9 +13,11 @@ namespace Site.DAL.Concrete
   public class TemplatesRepository : ITemplatesRepository
   {
     private readonly DatabaseContext _context;
+    private Web3Geth _web3;
 
     public TemplatesRepository(DatabaseContext context)
     {
+      _web3 = new Web3Geth();
       _context = context;
     }
 
@@ -77,6 +81,14 @@ namespace Site.DAL.Concrete
     {
       throw new NotImplementedException();
     }
+
+    public async Task<decimal> GetBalance(string address)
+    {
+      var balance = await _web3.Eth.GetBalance.SendRequestAsync(address);
+      var converted = Web3.Convert.FromWei(balance.Value, 18);
+      return converted;
+    }
+
 
     //public async Task<int> CountAsync(Guid id)
     //{

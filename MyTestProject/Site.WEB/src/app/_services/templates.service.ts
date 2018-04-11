@@ -7,6 +7,7 @@ import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Template } from '../_models/template';
 import { PageModel } from '../_models/PageModel';
+import { ContractResult } from '../_models/contract.result';
 
 
 @Injectable()
@@ -35,5 +36,13 @@ export class TemplatesService {
 
     update(model, id: string): Observable<Template> {
         return this.http.put<Template>(this.BASEURL + 'api/templates/' + id, model);
+    }
+
+    checkContract(model): Observable<ContractResult> {
+        return this.http.post<ContractResult>(this.BASEURL + 'api/templates/check', model);
+    }
+
+    getBalance(model): Observable<ContractResult> {
+        return this.http.post<ContractResult>(this.BASEURL + 'api/templates/balance', model);
     }
 }

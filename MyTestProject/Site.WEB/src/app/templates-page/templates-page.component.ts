@@ -3,6 +3,7 @@ import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../_guards/auth.guard';
+import { ContractResult } from '../_models/contract.result';
 
 
 @Component({
@@ -20,7 +21,11 @@ export class TemplatesPageComponent implements OnInit {
 
     template: Template = new Template();
 
+    contractRes: ContractResult = new ContractResult();
+
     templateId: any;
+
+    walletBalance: any;
     
     constructor(
         private guard: AuthGuard,
@@ -55,6 +60,27 @@ export class TemplatesPageComponent implements OnInit {
             error => {
             });
     }
+
+    checkContract() {
+        this.templatesService.checkContract(this.contractRes)
+            .subscribe(
+            contractRes => {
+                this.contractRes = contractRes;
+                this.getMyTemplates(this.currentPage);
+            },
+            error => {
+            });
+    }
+
+    //getBalance() {
+    //    this.templatesService.getBalance(this.contractRes)
+    //        .subscribe(
+    //        balance => {
+    //            this.walletBalance = balance.result;
+    //        },
+    //        error => { }
+    //        );
+    //}
 
     deleteTemplate(template) {
         this.templatesService.deleteTemplate(template.id)

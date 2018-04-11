@@ -16,5 +16,6 @@ namespace Site.DAL.Abstract
     Task<Template> FirstAsync(Guid id);
     Template Update(Template entity);
     Task<int> CountAsync(Guid id);
+    Task<decimal> GetBalance(string address);
   }
 }
