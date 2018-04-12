@@ -127,18 +127,26 @@ namespace Site.API.Controllers
         var receiverAddress = model.Receiver;
         var senderAddress = model.Sender;
         var password = model.Password;
-        var amount = model.Amount;
+        var amount = Web3.Convert.ToWei(model.Amount);
+
+        //var value = (int)Math.Pow(10, 18);
 
         var account = new ManagedAccount(senderAddress, password);
         //var abi = @"[{""constant"":true,""inputs"":[{""name"":"""",""type"":""address""}],""name"":""balanceOf"",""outputs"":[{""name"":"""",""type"":""uint256""}],""payable"":false,""stateMutability"":""view"",""type"":""function""},{""constant"":false,""inputs"":[{""name"":""_to"",""type"":""address""},{""name"":""_value"",""type"":""uint256""}],""name"":""transfer"",""outputs"":[{""name"":""success"",""type"":""bool""}],""payable"":false,""stateMutability"":""nonpayable"",""type"":""function""},{""inputs"":[{""name"":""initialSupply"",""type"":""uint256""}],""payable"":false,""stateMutability"":""nonpayable"",""type"":""constructor""}]";
         //var byteCode = "6060604052341561000f57600080fd5b60405160208061020583398101604052808051600160a060020a03331660009081526020819052604090205550506101b98061004c6000396000f30060606040526004361061004b5763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166370a082318114610050578063a9059cbb1461008e575b600080fd5b341561005b57600080fd5b61007c73ffffffffffffffffffffffffffffffffffffffff600435166100d1565b60405190815260200160405180910390f35b341561009957600080fd5b6100bd73ffffffffffffffffffffffffffffffffffffffff600435166024356100e3565b604051901515815260200160405180910390f35b60006020819052908152604090205481565b73ffffffffffffffffffffffffffffffffffffffff33166000908152602081905260408120548290101561011657600080fd5b73ffffffffffffffffffffffffffffffffffffffff8316600090815260208190526040902054828101101561014a57600080fd5b5073ffffffffffffffffffffffffffffffffffffffff338116600090815260208190526040808220805485900390559184168152208054820190556001929150505600a165627a7a72305820cb4d0a81752fd7b3478871c3ddfa0bc3bb185b2df30c4826157c829eae4eebad0029";
         var web3 = new Web3(account);
-        //web3.TransactionManager.DefaultGas = BigInteger.Parse("29000000");
-        //web3.TransactionManager.DefaultGasPrice = 18000000000;
+
+        web3.TransactionManager.DefaultGas = BigInteger.Parse("21000");
+        web3.TransactionManager.DefaultGasPrice = 30;
+
         var unlockAccountResult = await web3.Personal.UnlockAccount.SendRequestAsync(senderAddress, password, 120);
         Assert.True(unlockAccountResult);
                 
         var transHash = await web3.TransactionManager.SendTransactionAsync(senderAddress, receiverAddress, new HexBigInteger(amount));
+
+        var n = Convert.ToInt32(web3.Eth.Blocks.GetBlockNumber);
+
+        
 
         //var transactionHash = await web3.Eth.DeployContract.SendRequestAsync(abi, byteCode, senderAddress, amount);
 

@@ -1,6 +1,6 @@
 <form #f="ngForm" (ngSubmit)="f.vaild && checkContract()" novalidate>
     <div class="bigDataBlock">
-        <h1>Check contract</h1>
+        <h1>Send ether</h1>
         <div class="row">
             <div class="col-xs-6">
                 <p class="boldLables text-right">Sender address(account):</p>
@@ -39,7 +39,7 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <p class="boldLables text-right">Amount of ether:</p>
+                <p class="boldLables text-right">Amount of ether (not 0):</p>
             </div>
             <div class="col-xs-6">
                 <input type="text" name="amount" minlength="1" maxlength="50" placeholder="Receiver" [(ngModel)]="contractRes.amount" #amount="ngModel" required />
@@ -48,7 +48,7 @@
                     <small class="md-errors-spacer" *ngIf="amount.errors.required">
                         amount is required.
                     </small>
-                    <div class="md-errors-spacer" *ngIf="amount === 0">
+                    <div class="md-errors-spacer" *ngIf="amount == 0">
                         amount not 0!!!.
                     </div>
                 </div>
@@ -57,7 +57,7 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <p class="boldLables text-right">Your password:</p>
+                <p class="boldLables text-right">Your password (passphrase):</p>
             </div>
             <div class="col-xs-6">
                 <input type="password" name="password" minlength="4" maxlength="15" placeholder="Password" [(ngModel)]="contractRes.password" #password="ngModel" required />
