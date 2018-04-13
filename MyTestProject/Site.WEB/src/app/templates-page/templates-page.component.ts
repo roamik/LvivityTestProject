@@ -15,7 +15,7 @@ export class TemplatesPageComponent implements OnInit {
 
     length: number;
     currentPage: number = 0;
-    transactionCount: number = 4;
+    transactionCount: number = 20;
 
     public transactions: Array<Transaction> = [];
 
@@ -63,7 +63,7 @@ export class TemplatesPageComponent implements OnInit {
         this.templatesService.formTransaction(this.transaction)
             .subscribe(
             transaction => {
-                this.transaction = transaction;
+                //this.transaction = transaction;
                 this.getMyTransactions(this.currentPage);
             },
             error => {

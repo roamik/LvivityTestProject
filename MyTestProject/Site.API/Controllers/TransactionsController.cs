@@ -139,7 +139,7 @@ namespace Site.API.Controllers
         var web3 = new Web3(account);
 
         web3.TransactionManager.DefaultGas = BigInteger.Parse("21000");
-        web3.TransactionManager.DefaultGasPrice = 30;
+        web3.TransactionManager.DefaultGasPrice = 25;
 
         var unlockAccountResult = await web3.Personal.UnlockAccount.SendRequestAsync(senderAddress, password, 120);
         Assert.True(unlockAccountResult);

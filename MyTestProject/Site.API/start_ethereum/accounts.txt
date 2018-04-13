@@ -1,0 +1,11 @@
+0x4544e9585d78a6b71af26A9Fa7738a45269a8aeB--- base
+
+0x6150b2d7dd9da836fe709b06acc2a099c28e4033
+
+
+gas(amount) * gas price(for 1 gas (default is 22(gwei))) * 0,000000001 (gether) = how much it will eat your ETH for transaction --https://www.youtube.com/watch?v=Jb49Vmh1psU
+
+web3.fromWei(eth.getBalance(eth.accounts[1]), "ether")
+
+
+0,000525 0,000524999999475 0,00000099999895

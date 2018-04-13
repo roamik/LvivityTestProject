@@ -1,0 +1,14 @@
+Generate new private chain
+
+geth --datadir d:\start_ethereum init customGenesis.json
+-------------------------------------------------------------------------------------
+Launch chain
+
+1. geth --datadir d:\eth_test --rpc ////// start p2p private network
+geth --datadir d:\eth_test --rpc --rpcapi "eth,web3,personal,net,miner,admin,debug"
+
+2.-----------launch wallet (mew)---------
+
+3. geth attach ipc:\\\\.\\pipe\\geth.ipc ////// attach to running ether instance
+
+
