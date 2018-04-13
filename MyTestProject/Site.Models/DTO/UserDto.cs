@@ -14,7 +14,7 @@ namespace Site.Models.DTO
         public string Email { get; set; }
 
         //nav
-        public virtual List<TemplateDto> Templates { get; set; }
+        public virtual List<TransactionDto> Transactions { get; set; }
 
         public virtual List<ProjectDto> Projects { get; set; }
 

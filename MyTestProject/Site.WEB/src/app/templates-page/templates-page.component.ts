@@ -3,7 +3,7 @@ import { TemplatesService } from '../_services/templates.service';
 import { Template } from '../_models/template';
 import { Router } from '@angular/router';
 import { AuthGuard } from '../_guards/auth.guard';
-import { ContractResult } from '../_models/contract.result';
+import { Transaction } from '../_models/transaction';
 
 
 @Component({
@@ -15,15 +15,13 @@ export class TemplatesPageComponent implements OnInit {
 
     length: number;
     currentPage: number = 0;
-    templateCount: number = 4;
+    transactionCount: number = 4;
 
-    public templates: Array<Template> = [];
+    public transactions: Array<Transaction> = [];
 
-    template: Template = new Template();
+    transaction: Transaction = new Transaction();
 
-    contractRes: ContractResult = new ContractResult();
-
-    templateId: any;
+    transactionId: any;
 
     walletBalance: any;
     
@@ -34,39 +32,39 @@ export class TemplatesPageComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.getMyTemplates(this.currentPage);
+        this.getMyTransactions(this.currentPage);
     }
 
 
-    getMyTemplates(page) {
+    getMyTransactions(page) {
         this.currentPage = page;
-        this.templatesService.getTemplates(this.currentPage, this.templateCount)
+        this.templatesService.getTransactions(this.currentPage, this.transactionCount)
             .subscribe(
             pageModel => {
-                this.templates = pageModel.items;
+                this.transactions = pageModel.items;
                 this.length = pageModel.totalCount;
             },
             error => { }
             );
     }
 
-    addTemplate() {
-        this.templatesService.add(this.template)
-            .subscribe(
-            template => {
-                this.template = template;
-                this.getMyTemplates(this.currentPage);
-            },
-            error => {
-            });
-    }
+    //addTemplate() {
+    //    this.templatesService.add(this.template)
+    //        .subscribe(
+    //        template => {
+    //            this.template = template;
+    //            this.getMyTemplates(this.currentPage);
+    //        },
+    //        error => {
+    //        });
+    //}
 
-    checkContract() {
-        this.templatesService.checkContract(this.contractRes)
+    initTransaction() {
+        this.templatesService.formTransaction(this.transaction)
             .subscribe(
-            contractRes => {
-                this.contractRes = contractRes;
-                this.getMyTemplates(this.currentPage);
+            transaction => {
+                this.transaction = transaction;
+                this.getMyTransactions(this.currentPage);
             },
             error => {
             });
@@ -82,15 +80,15 @@ export class TemplatesPageComponent implements OnInit {
     //        );
     //}
 
-    deleteTemplate(template) {
-        this.templatesService.deleteTemplate(template.id)
-            .subscribe(
-            success => {
+    //deleteTemplate(template) {
+    //    this.templatesService.deleteTemplate(template.id)
+    //        .subscribe(
+    //        success => {
 
-                this.getMyTemplates(this.currentPage);
-            },
-            error => {
-            });
-    }
+    //            this.getMyTemplates(this.currentPage);
+    //        },
+    //        error => {
+    //        });
+    //}
 
 }

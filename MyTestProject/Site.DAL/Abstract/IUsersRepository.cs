@@ -9,7 +9,7 @@ namespace Site.DAL.Abstract
   {
     Task<List<User>> GetPagedAsync(int page, int count, Guid myid);
     Task<List<User>> GetUsersLinkedAsync(string id, int page, int count);
-    Task<User> LinkToProjectAsync(Template template);
+    Task<User> LinkToProjectAsync(Transaction template);
     Task<int> Save();
     Task<User> FirstAsync(Guid id);
     Task<bool> ExistAsync(Guid key);

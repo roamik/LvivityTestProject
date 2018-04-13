@@ -10,30 +10,30 @@ using Site.Models.Entities;
 
 namespace Site.DAL.Concrete
 {
-  public class TemplatesRepository : ITemplatesRepository
+  public class TransactionRepository : ITransactionRepository
   {
     private readonly DatabaseContext _context;
     private Web3Geth _web3;
 
-    public TemplatesRepository(DatabaseContext context)
+    public TransactionRepository(DatabaseContext context)
     {
       _web3 = new Web3Geth();
       _context = context;
     }
 
 
-    public async Task<List<Template>> GetPagedAsync(Guid id, int page, int count)
+    public async Task<List<Transaction>> GetPagedAsync(Guid id, int page, int count)
     {
-      var templateList = await _context.Templates.Where(t => t.UserId == id)
+      var transactionList = await _context.Transactions.Where(t => t.UserId == id && t.Confirmed == true)
         .Skip(page * count)
         .Take(count)
         .ToListAsync();
-      return templateList;
+      return transactionList;
     }
 
-    public virtual async Task<Template> AddAsync(Template template)
+    public virtual async Task<Transaction> AddAsync(Transaction transaction)
     {
-      return (await _context.Templates.AddAsync(template)).Entity;
+      return (await _context.Transactions.AddAsync(transaction)).Entity;
     }
 
 
@@ -43,43 +43,43 @@ namespace Site.DAL.Concrete
       return await _context.SaveChangesAsync();
     }
 
-    public async Task<Template> GetByIdAsync(object id)
+    public async Task<Transaction> GetByIdAsync(object id)
     {
-      return await _context.Templates.FindAsync(id);
+      return await _context.Transactions.FindAsync(id);
     }
 
-    public void Delete(Template entity)
+    public void Delete(Transaction entity)
     {
       if (_context.Entry(entity).State == EntityState.Detached)
       {
-        _context.Templates.Attach(entity);
+        _context.Transactions.Attach(entity);
       }
-      _context.Templates.Remove(entity);
+      _context.Transactions.Remove(entity);
     }
 
     public async Task<bool> ExistAsync(Guid key)
     {
-      return await _context.Templates.AnyAsync(o => o.Id == key);
+      return await _context.Transactions.AnyAsync(o => o.Id == key);
     }
 
-    public async Task<Template> FirstAsync(Guid id)
+    public async Task<Transaction> FirstAsync(Guid id)
     {
-      return await _context.Templates.FirstOrDefaultAsync(o => o.Id == id);
+      return await _context.Transactions.FirstOrDefaultAsync(o => o.Id == id);
     }
 
-    public virtual Template Update(Template entity)
+    public virtual Transaction Update(Transaction entity)
     {
       if (_context.Entry(entity).State == EntityState.Detached)
       {
-        _context.Templates.Attach(entity);
+        _context.Transactions.Attach(entity);
       }
        _context.Entry(entity).State = EntityState.Modified;
       return entity;
     }
 
-    public Task<int> CountAsync(Guid id)
+    public async Task<int> CountAsync(Guid id)
     {
-      throw new NotImplementedException();
+      return await _context.Transactions.CountAsync();
     }
 
     public async Task<decimal> GetBalance(string address)

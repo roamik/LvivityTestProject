@@ -7,7 +7,7 @@ import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Template } from '../_models/template';
 import { PageModel } from '../_models/PageModel';
-import { ContractResult } from '../_models/contract.result';
+import { Transaction } from '../_models/transaction';
 
 
 @Injectable()
@@ -21,9 +21,9 @@ export class TemplatesService {
         return this.http.get<Template>(this.BASEURL + 'api/templates/' + id);
     }
 
-    getTemplates(page: number, count: number): Observable<PageModel<Template>> {
-        var url = 'api/templates?page=' + page + '&count=' + count;
-        return this.http.get<PageModel<Template>>(this.BASEURL + url);    
+    getTransactions(page: number, count: number): Observable<PageModel<Transaction>> {
+        var url = 'api/transactions/paged?page=' + page + '&count=' + count;
+        return this.http.get<PageModel<Transaction>>(this.BASEURL + url);
     }
 
     add(model): Observable<Template> {
@@ -38,11 +38,11 @@ export class TemplatesService {
         return this.http.put<Template>(this.BASEURL + 'api/templates/' + id, model);
     }
 
-    checkContract(model): Observable<ContractResult> {
-        return this.http.post<ContractResult>(this.BASEURL + 'api/templates/check', model);
+    formTransaction(model): Observable<Transaction> {
+        return this.http.post<Transaction>(this.BASEURL + 'api/transactions/form', model);
     }
 
-    getBalance(model): Observable<ContractResult> {
-        return this.http.post<ContractResult>(this.BASEURL + 'api/templates/balance', model);
+    getBalance(model): Observable<Transaction> {
+        return this.http.post<Transaction>(this.BASEURL + 'api/transactions/balance', model);
     }
 }

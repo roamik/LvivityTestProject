@@ -12,9 +12,10 @@ using System;
 namespace Site.Models.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20180413104444_TransactionTable")]
+    partial class TransactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,8 +153,6 @@ namespace Site.Models.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount");
-
-                    b.Property<bool>("Confirmed");
 
                     b.Property<string>("Receiver");
 

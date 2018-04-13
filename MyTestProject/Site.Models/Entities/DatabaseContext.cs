@@ -30,7 +30,7 @@ namespace Site.Models.Entities
           /*"Server = ROAMPC; Database = NewDb; Trusted_Connection = True; MultipleActiveResultSets = true"*/);
     }
 
-    public DbSet<Template> Templates { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 
     public DbSet<Project> Projects { get; set; }
 

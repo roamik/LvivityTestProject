@@ -4,8 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Site.Models.DTO
 {
-  public class ContractResultDto
+  public class TransactionDto
   {
+    public virtual Guid? Id { get; set; }
+
+    public Guid UserId { get; set; }
+
     public string Sender { get; set; }
 
     public string Receiver { get; set; }
@@ -13,5 +17,7 @@ namespace Site.Models.DTO
     public string Password { get; set; }
 
     public decimal Amount { get; set; }
+
+    public bool Confirmed { get; set; }
   }
 }

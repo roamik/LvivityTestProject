@@ -60,7 +60,7 @@ namespace Site.API
 
       services.AddScoped<IUserRoleSeed, UserRoleSeed>();
 
-      services.AddScoped<ITemplatesRepository, TemplatesRepository>();
+      services.AddScoped<ITransactionRepository, TransactionRepository>();
 
       services.AddScoped<IUsersRepository, UsersRepository>();
 

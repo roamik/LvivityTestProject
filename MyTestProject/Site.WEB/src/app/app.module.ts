@@ -41,7 +41,7 @@ const appRoutes: Routes = [
     { path: "login", component: LoginPageComponent },
     { path: "register", component: RegisterPageComponent },
     { path: "home", component: HomePageComponent, canActivate: [AuthGuard] },
-    { path: "templates", component: TemplatesPageComponent, canActivate: [AuthGuard] },
+    { path: "transactions", component: TemplatesPageComponent, canActivate: [AuthGuard] },
     { path: "edit/:id", component: EditPageComponent, canActivate: [AuthGuard] },
     { path: "project/:id", component: ProjectPageComponent, canActivate: [AuthGuard] },
     { path: "projects", component: ProjectsListPageComponent, canActivate: [AuthGuard] },

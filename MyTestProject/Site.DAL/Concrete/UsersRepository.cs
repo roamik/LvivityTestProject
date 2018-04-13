@@ -53,7 +53,7 @@ namespace Site.DAL.Concrete
 
     public async Task<bool> ExistAsync(Guid key)
     {
-      return await _context.Templates.AnyAsync(o => o.Id == key);
+      return await _context.Transactions.AnyAsync(o => o.Id == key);
     }
 
     public async Task<User> FirstAsync(Guid id)
@@ -76,7 +76,7 @@ namespace Site.DAL.Concrete
       throw new NotImplementedException();
     }
 
-    public Task<User> LinkToProjectAsync(Template template)
+    public Task<User> LinkToProjectAsync(Transaction template)
     {
       throw new NotImplementedException();
     }

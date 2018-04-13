@@ -24,106 +24,108 @@ namespace Site.API.Controllers
 
   [Route("api/[controller]")]
   [Authorize(Roles = "Admin,Member")]
-  public class TemplatesController : Controller
+  public class TransactionsController : Controller
   {
-    private readonly ITemplatesRepository _templateRep;
+    private readonly ITransactionRepository _transactRep;
     private readonly IMapper _mapper;
 
-    public TemplatesController(ITemplatesRepository templateRep, IMapper mapper)
+    public TransactionsController(ITransactionRepository transactRep, IMapper mapper)
     {
-      _templateRep = templateRep;
+      _transactRep = transactRep;
       _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetMyTemplates([FromQuery] int page, [FromQuery] int count)
+    [Route("paged")]
+    public async Task<IActionResult> GetMyTransactions([FromQuery] int page, [FromQuery] int count)
     {
       var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
-      var templates = await _templateRep.GetPagedAsync(userId, page, count);
-      var templatesCount = await _templateRep.CountAsync(userId);
+      var transactions = await _transactRep.GetPagedAsync(userId, page, count);
+      var transactionsCount = await _transactRep.CountAsync(userId);
 
-      var pageReturnModel = new PageReturnModel<TemplateDto>
+      var pageReturnModel = new PageReturnModel<TransactionDto>
       {
-        Items = _mapper.Map<IEnumerable<TemplateDto>>(templates),
-        TotalCount = templatesCount,
+        Items = _mapper.Map<IEnumerable<TransactionDto>>(transactions),
+        TotalCount = transactionsCount,
         CurrentPage = page
       };
       return Ok(pageReturnModel);
     }
 
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetTemplateByIdAsync(Guid id)
-    {
-      var template = await _templateRep.FirstAsync(id);
-      if (template == null)
-      {
-        return BadRequest("Template not found!");
-      }
+    //[HttpGet]
+    //[Route("{id}")]
+    //public async Task<IActionResult> GetTemplateByIdAsync(Guid id)
+    //{
+    //  var template = await _templateRep.FirstAsync(id);
+    //  if (template == null)
+    //  {
+    //    return BadRequest("Template not found!");
+    //  }
 
-      return Ok(_mapper.Map<TemplateDto>(template));
-    }
+    //  return Ok(_mapper.Map<TemplateDto>(template));
+    //}
+
+    //[HttpPost]
+    //public async Task<IActionResult> CreateTemplateAsync([FromBody] TemplateDto model)
+    //{
+    //  var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value); // Get user id from token Sid claim
+    //  //var template = new Template { Content = model.Content, Description = model.Description, Name = model.Name, UserId = userId };
+    //  model.Id = null;
+    //  model.UserId = userId;
+    //  var template = _mapper.Map<Transaction>(model);
+    //  template = await _templateRep.AddAsync(template);
+    //  await _templateRep.Save();
+    //  return Ok(_mapper.Map<TemplateDto>(template));
+    //}
+
+    //[HttpDelete]
+    //[Route("{id}")]
+    //public async Task<IActionResult> DeleteProduct(Guid id)
+    //{
+    //  if (!await _templateRep.ExistAsync(id))
+    //  {
+    //    return NotFound($"Item {id} doesn't exist!");
+    //  }
+
+    //  var template = await _templateRep.GetByIdAsync(id);
+
+    //  _templateRep.Delete(template);
+    //  await _templateRep.Save();
+    //  return NoContent();
+    //}
+
+    //[HttpPut]
+    //[Route("{id}")]
+    //public async Task<IActionResult> Update([FromBody] TemplateDto model, Guid id)
+    //{
+    //  if (!ModelState.IsValid || model == null)
+    //  {
+    //    return BadRequest(ModelState);
+    //  }
+
+    //  if (!await _templateRep.ExistAsync(id))
+    //  {
+    //    return NotFound($"Item {id} doesn't exist!");
+    //  }
+
+    //  //var template = await _templateRep.GetByIdAsync(id);
+    //  ////template.Name = model.Name;
+    //  ////template.Description = model.Description;
+    //  ////template.Content = model.Content;
+    //  var template = _mapper.Map<Transaction>(model);
+
+    //  template = _templateRep.Update(template);
+    //  await _templateRep.Save();
+    //  return Ok(_mapper.Map<TemplateDto>(template));
+    //}
 
     [HttpPost]
-    public async Task<IActionResult> CreateTemplateAsync([FromBody] TemplateDto model)
-    {
-      var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value); // Get user id from token Sid claim
-      //var template = new Template { Content = model.Content, Description = model.Description, Name = model.Name, UserId = userId };
-      model.Id = null;
-      model.UserId = userId;
-      var template = _mapper.Map<Template>(model);
-      template = await _templateRep.AddAsync(template);
-      await _templateRep.Save();
-      return Ok(_mapper.Map<TemplateDto>(template));
-    }
-
-    [HttpDelete]
-    [Route("{id}")]
-    public async Task<IActionResult> DeleteProduct(Guid id)
-    {
-      if (!await _templateRep.ExistAsync(id))
-      {
-        return NotFound($"Item {id} doesn't exist!");
-      }
-
-      var template = await _templateRep.GetByIdAsync(id);
-
-      _templateRep.Delete(template);
-      await _templateRep.Save();
-      return NoContent();
-    }
-
-    [HttpPut]
-    [Route("{id}")]
-    public async Task<IActionResult> Update([FromBody] TemplateDto model, Guid id)
-    {
-      if (!ModelState.IsValid || model == null)
-      {
-        return BadRequest(ModelState);
-      }
-
-      if (!await _templateRep.ExistAsync(id))
-      {
-        return NotFound($"Item {id} doesn't exist!");
-      }
-
-      //var template = await _templateRep.GetByIdAsync(id);
-      ////template.Name = model.Name;
-      ////template.Description = model.Description;
-      ////template.Content = model.Content;
-      var template = _mapper.Map<Template>(model);
-
-      template = _templateRep.Update(template);
-      await _templateRep.Save();
-      return Ok(_mapper.Map<TemplateDto>(template));
-    }
-
-    [HttpPost]
-    [Route("check")]
-    public async Task<IActionResult> CheckContractAsync([FromBody] ContractResultDto model) //test contract (multiplies 7 * 7)
+    [Route("form")]
+    public async Task<IActionResult> InitTransaction([FromBody] TransactionDto model)
     {
       try
       {
+        var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
         var receiverAddress = model.Receiver;
         var senderAddress = model.Sender;
         var password = model.Password;
@@ -141,13 +143,25 @@ namespace Site.API.Controllers
 
         var unlockAccountResult = await web3.Personal.UnlockAccount.SendRequestAsync(senderAddress, password, 120);
         Assert.True(unlockAccountResult);
-                
+
         var transHash = await web3.TransactionManager.SendTransactionAsync(senderAddress, receiverAddress, new HexBigInteger(amount));
 
-        var n = Convert.ToInt32(web3.Eth.Blocks.GetBlockNumber);
-
+        var receipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transHash);
         
+        while (receipt == null)
+        {
+          Thread.Sleep(5000);
+          receipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transHash);
+        }
 
+        model.Id = null;
+        model.Confirmed = receipt != null ? true : false;
+        model.UserId = userId;
+        var transaction = _mapper.Map<Transaction>(model);
+        transaction = await _transactRep.AddAsync(transaction);
+        await _transactRep.Save();
+
+        #region ForContract
         //var transactionHash = await web3.Eth.DeployContract.SendRequestAsync(abi, byteCode, senderAddress, amount);
 
         //var mineStart = await web3.Miner.Start.SendRequestAsync(2);
@@ -171,8 +185,9 @@ namespace Site.API.Controllers
         //var result = await transferFunction.CallAsync<bool>(receiverAddress, amount);
 
         //var mineStop = await web3.Miner.Stop.SendRequestAsync();
+        #endregion
 
-        return Ok("Transaction resulted successfully!");
+        return Ok(_mapper.Map<TransactionDto>(transaction));
       }
       catch (Exception e)
       {
