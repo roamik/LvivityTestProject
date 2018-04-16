@@ -13,6 +13,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Web3.Accounts.Managed;
+using Site.API.Nethereum;
 using Site.DAL.Abstract;
 using Site.Models.DTO;
 using Site.Models.Entities;
@@ -123,6 +124,8 @@ namespace Site.API.Controllers
     [Route("form")]
     public async Task<IActionResult> InitTransaction([FromBody] TransactionDto model)
     {
+      WaitForConfirmation waitForConf = new WaitForConfirmation();
+
       try
       {
         var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sid)?.Value);
@@ -146,16 +149,10 @@ namespace Site.API.Controllers
 
         var transHash = await web3.TransactionManager.SendTransactionAsync(senderAddress, receiverAddress, new HexBigInteger(amount));
 
-        var receipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transHash);
-        
-        while (receipt == null)
-        {
-          Thread.Sleep(5000);
-          receipt = await web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transHash);
-        }
+        var confirmed = await waitForConf.ConfirmedAsync(transHash);
 
         model.Id = null;
-        model.Confirmed = receipt != null ? true : false;
+        model.Confirmed = confirmed == true ? true : false;
         model.UserId = userId;
         var transaction = _mapper.Map<Transaction>(model);
         transaction = await _transactRep.AddAsync(transaction);

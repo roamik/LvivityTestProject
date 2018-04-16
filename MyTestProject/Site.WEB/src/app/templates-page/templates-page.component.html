@@ -84,16 +84,16 @@
                 <th>Sender</th>
                 <th>Receiver</th>
                 <th>Ether amount</th>
-                <!--<th></th>-->
+                <th>Status</th>
             </tr>
             <tr id="transactions" *ngFor="let transaction of transactions">
                 <td>{{ transaction.sender }}</td>
                 <td>{{ transaction.receiver }}</td>
                 <td>{{ transaction.amount }}</td>
-                <!--<td>
-                    <a [routerLink]="['/edit', template.id]"><span>Edit</span></a>
-                    <a [routerLink]="['/templates']"><span (click)="deleteTemplate(template)">Delete</span></a>
-                </td>-->
+                <td>
+                    <span style="color:green" *ngIf="transaction.confirmed === true">Confirmed</span>
+                    <span style="color:red" *ngIf="transaction.confirmed === false">Not confirmed</span>
+                </td>
             </tr>
         </table>
         <span *ngIf="transactions.length === 0">

@@ -24,7 +24,7 @@ namespace Site.DAL.Concrete
 
     public async Task<List<Transaction>> GetPagedAsync(Guid id, int page, int count)
     {
-      var transactionList = await _context.Transactions.Where(t => t.UserId == id && t.Confirmed == true)
+      var transactionList = await _context.Transactions.Where(t=>t.UserId == id)//.Where(t => t.UserId == id && t.Confirmed == true)
         .Skip(page * count)
         .Take(count)
         .ToListAsync();
